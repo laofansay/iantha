@@ -1,0 +1,32 @@
+{
+  "ianthaApp": {
+    "discountCode": {
+      "home": {
+        "title": "Discount Codes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Discount Code",
+        "createOrEditLabel": "Create or edit a Discount Code",
+        "notFound": "No Discount Codes found"
+      },
+      "created": "A new Discount Code is created with identifier {{ param }}",
+      "updated": "A Discount Code is updated with identifier {{ param }}",
+      "deleted": "A Discount Code is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Discount Code {{ id }}?"
+      },
+      "detail": {
+        "title": "Discount Code"
+      },
+      "id": "ID",
+      "code": "Code",
+      "stock": "Stock",
+      "description": "Description",
+      "percent": "Percent",
+      "maxDiscountAmount": "Max Discount Amount",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "createdAt": "Created At",
+      "order": "Order"
+    }
+  }
+}

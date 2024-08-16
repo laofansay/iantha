@@ -1,0 +1,50 @@
+{
+  "ianthaApp": {
+    "babySpec": {
+      "home": {
+        "title": "Baby Specs",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Baby Spec",
+        "createOrEditLabel": "Create or edit a Baby Spec",
+        "notFound": "No Baby Specs found"
+      },
+      "created": "A new Baby Spec is created with identifier {{ param }}",
+      "updated": "A Baby Spec is updated with identifier {{ param }}",
+      "deleted": "A Baby Spec is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Baby Spec {{ id }}?"
+      },
+      "detail": {
+        "title": "Baby Spec"
+      },
+      "id": "ID",
+      "specCode": "Spec Code",
+      "specTitle": "Spec Title",
+      "description": "Description",
+      "specQuantity": "Spec Quantity",
+      "guidePrice": "Guide Price",
+      "specPrice": "Spec Price",
+      "showPrice": "Show Price",
+      "specStatus": "Spec Status",
+      "images": "Images",
+      "sellCount": "Sell Count",
+      "stockCount": "Stock Count",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "products": "Products",
+      "help": {
+        "specCode": "规格编码",
+        "specTitle": "规规格标题",
+        "description": "规模规格描述",
+        "specQuantity": "规规格标题",
+        "guidePrice": "成本价",
+        "specPrice": "单价",
+        "showPrice": "画线价",
+        "specStatus": "规格状态",
+        "images": "规格图片",
+        "sellCount": "销量,此处简单维护,期望接入进入销存系统",
+        "stockCount": "库存,此处简单维护,期望接入进入销存系统"
+      }
+    }
+  }
+}

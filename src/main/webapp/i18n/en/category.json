@@ -1,0 +1,36 @@
+{
+  "ianthaApp": {
+    "category": {
+      "home": {
+        "title": "Categories",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Category",
+        "createOrEditLabel": "Create or edit a Category",
+        "notFound": "No Categories found"
+      },
+      "created": "A new Category is created with identifier {{ param }}",
+      "updated": "A Category is updated with identifier {{ param }}",
+      "deleted": "A Category is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Category {{ id }}?"
+      },
+      "detail": {
+        "title": "Category"
+      },
+      "id": "ID",
+      "title": "Title",
+      "description": "Description",
+      "cateCode": "Cate Code",
+      "icon": "Icon",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "products": "Products",
+      "help": {
+        "title": "商品名称",
+        "description": "分类描述",
+        "cateCode": "分类编码",
+        "icon": "分类图标"
+      }
+    }
+  }
+}

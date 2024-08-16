@@ -1,0 +1,28 @@
+{
+  "ianthaApp": {
+    "paymentProvider": {
+      "home": {
+        "title": "Payment Providers",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Payment Provider",
+        "createOrEditLabel": "Create or edit a Payment Provider",
+        "notFound": "No Payment Providers found"
+      },
+      "created": "A new Payment Provider is created with identifier {{ param }}",
+      "updated": "A Payment Provider is updated with identifier {{ param }}",
+      "deleted": "A Payment Provider is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Payment Provider {{ id }}?"
+      },
+      "detail": {
+        "title": "Payment Provider"
+      },
+      "id": "ID",
+      "title": "Title",
+      "description": "Description",
+      "websiteUrl": "Website Url",
+      "isActive": "Is Active",
+      "orders": "Orders"
+    }
+  }
+}

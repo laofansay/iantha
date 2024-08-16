@@ -1,0 +1,65 @@
+{
+  "ianthaApp": {
+    "product": {
+      "home": {
+        "title": "Products",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Product",
+        "createOrEditLabel": "Create or edit a Product",
+        "notFound": "No Products found"
+      },
+      "created": "A new Product is created with identifier {{ param }}",
+      "updated": "A Product is updated with identifier {{ param }}",
+      "deleted": "A Product is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Product {{ id }}?"
+      },
+      "detail": {
+        "title": "Product"
+      },
+      "id": "ID",
+      "title": "Title",
+      "transCode": "Trans Code",
+      "description": "Description",
+      "images": "Images",
+      "keywords": "Keywords",
+      "metadata": "Metadata",
+      "guidePrice": "Guide Price",
+      "price": "Price",
+      "showPrice": "Show Price",
+      "discount": "Discount",
+      "stock": "Stock",
+      "isPhysical": "Is Physical",
+      "isAvailable": "Is Available",
+      "isFeatured": "Is Featured",
+      "status": "Status",
+      "sellCount": "Sell Count",
+      "stockCount": "Stock Count",
+      "shelvesStatus": "Shelves Status",
+      "shelvesDate": "Shelves Date",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "cartItems": "Cart Items",
+      "spec": "Spec",
+      "label": "Label",
+      "brand": "Brand",
+      "categories": "Categories",
+      "help": {
+        "transCode": "商品编码",
+        "images": "默认图",
+        "guidePrice": "成本价",
+        "price": "平台销售单价",
+        "showPrice": "画线价",
+        "stock": "折扣",
+        "isPhysical": "库存",
+        "isAvailable": "是否物理商品",
+        "isFeatured": "是否可用",
+        "status": "是否物色",
+        "sellCount": "销量,此处简单维护,期望接入进入销存系统",
+        "stockCount": "库存,此处简单维护,期望接入进入销存系统",
+        "shelvesStatus": "上架状态",
+        "shelvesDate": "上架时间"
+      }
+    }
+  }
+}

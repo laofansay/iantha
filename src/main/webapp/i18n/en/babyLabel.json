@@ -1,0 +1,40 @@
+{
+  "ianthaApp": {
+    "babyLabel": {
+      "home": {
+        "title": "Baby Labels",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Baby Label",
+        "createOrEditLabel": "Create or edit a Baby Label",
+        "notFound": "No Baby Labels found"
+      },
+      "created": "A new Baby Label is created with identifier {{ param }}",
+      "updated": "A Baby Label is updated with identifier {{ param }}",
+      "deleted": "A Baby Label is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Baby Label {{ id }}?"
+      },
+      "detail": {
+        "title": "Baby Label"
+      },
+      "id": "ID",
+      "title": "Title",
+      "labelCate": "Label Cate",
+      "labelCode": "Label Code",
+      "labelAttr": "Label Attr",
+      "identify": "Identify",
+      "ruleReadme": "Rule Readme",
+      "ruleExpression": "Rule Expression",
+      "products": "Products",
+      "help": {
+        "title": "标签名称",
+        "labelCate": "标签分类",
+        "labelCode": "标签编码",
+        "labelAttr": "标签附加属性",
+        "identify": "创建者ID",
+        "ruleReadme": "规则说明富文本",
+        "ruleExpression": "规则说明富文本"
+      }
+    }
+  }
+}
