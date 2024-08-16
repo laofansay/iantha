@@ -17,7 +17,7 @@
             <column name="cart_id" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="product_id" type="varchar(255)">
+            <column name="prod_id" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
             <column name="count" type="integer">

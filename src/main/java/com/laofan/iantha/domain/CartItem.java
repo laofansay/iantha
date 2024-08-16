@@ -33,7 +33,7 @@ public class CartItem implements Serializable {
     private String cartId;
 
     @NotNull
-    @Column(name = "product_id", nullable = false)
+    @Column(name = "prod_id", nullable = false)
     private String productId;
 
     @NotNull
