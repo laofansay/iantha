@@ -8,6 +8,10 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IBrand } from 'app/shared/model/brand.model';
+import { getEntities as getBrands } from 'app/entities/brand/brand.reducer';
+import { ICategory } from 'app/shared/model/category.model';
+import { getEntities as getCategories } from 'app/entities/category/category.reducer';
 import { IProduct } from 'app/shared/model/product.model';
 import { ProdStatus } from 'app/shared/model/enumerations/prod-status.model';
 import { getEntity, updateEntity, createEntity, reset } from './product.reducer';
@@ -20,6 +24,8 @@ export const ProductUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
+  const brands = useAppSelector(state => state.brand.entities);
+  const categories = useAppSelector(state => state.category.entities);
   const productEntity = useAppSelector(state => state.product.entity);
   const loading = useAppSelector(state => state.product.loading);
   const updating = useAppSelector(state => state.product.updating);
@@ -36,6 +42,9 @@ export const ProductUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
+
+    dispatch(getBrands({}));
+    dispatch(getCategories({}));
   }, []);
 
   useEffect(() => {
@@ -77,6 +86,8 @@ export const ProductUpdate = () => {
     const entity = {
       ...productEntity,
       ...values,
+      brand: brands.find(it => it.id.toString() === values.brand?.toString()),
+      categories: categories.find(it => it.id.toString() === values.categories?.toString()),
     };
 
     if (isNew) {
@@ -99,6 +110,8 @@ export const ProductUpdate = () => {
           shelvesDate: convertDateTimeFromServer(productEntity.shelvesDate),
           createdAt: convertDateTimeFromServer(productEntity.createdAt),
           updatedAt: convertDateTimeFromServer(productEntity.updatedAt),
+          brand: productEntity?.brand?.id,
+          categories: productEntity?.categories?.id,
         };
 
   return (
@@ -363,6 +376,32 @@ export const ProductUpdate = () => {
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
               />
+              <ValidatedField id="product-brand" name="brand" data-cy="brand" label={translate('ianthaApp.product.brand')} type="select">
+                <option value="" key="0" />
+                {brands
+                  ? brands.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <ValidatedField
+                id="product-categories"
+                name="categories"
+                data-cy="categories"
+                label={translate('ianthaApp.product.categories')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {categories
+                  ? categories.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/product" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

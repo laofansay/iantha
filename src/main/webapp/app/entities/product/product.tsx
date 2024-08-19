@@ -172,6 +172,12 @@ export const Product = () => {
                   <Translate contentKey="ianthaApp.product.updatedAt">Updated At</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('updatedAt')} />
                 </th>
+                <th>
+                  <Translate contentKey="ianthaApp.product.brand">Brand</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  <Translate contentKey="ianthaApp.product.categories">Categories</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -206,6 +212,8 @@ export const Product = () => {
                   <td>{product.shelvesDate ? <TextFormat type="date" value={product.shelvesDate} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>{product.createdAt ? <TextFormat type="date" value={product.createdAt} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>{product.updatedAt ? <TextFormat type="date" value={product.updatedAt} format={APP_DATE_FORMAT} /> : null}</td>
+                  <td>{product.brand ? <Link to={`/brand/${product.brand.id}`}>{product.brand.id}</Link> : ''}</td>
+                  <td>{product.categories ? <Link to={`/category/${product.categories.id}`}>{product.categories.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/product/${product.id}`} color="info" size="sm" data-cy="entityDetailsButton">

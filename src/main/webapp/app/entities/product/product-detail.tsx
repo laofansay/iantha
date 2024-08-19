@@ -202,6 +202,14 @@ export const ProductDetail = () => {
             </span>
           </dt>
           <dd>{productEntity.updatedAt ? <TextFormat value={productEntity.updatedAt} type="date" format={APP_DATE_FORMAT} /> : null}</dd>
+          <dt>
+            <Translate contentKey="ianthaApp.product.brand">Brand</Translate>
+          </dt>
+          <dd>{productEntity.brand ? productEntity.brand.id : ''}</dd>
+          <dt>
+            <Translate contentKey="ianthaApp.product.categories">Categories</Translate>
+          </dt>
+          <dd>{productEntity.categories ? productEntity.categories.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/product" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

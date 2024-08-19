@@ -1,0 +1,35 @@
+{
+  "generator-jhipster": {
+    "applicationType": "monolith",
+    "authenticationType": "jwt",
+    "baseName": "iantha",
+    "clientFramework": "react",
+    "devServerPort": 9060,
+    "entities": [
+      "Cart",
+      "CartItem",
+      "Brand",
+      "Product",
+      "Category",
+      "BabySpec",
+      "BabyLabel",
+      "Order",
+      "OrderItem",
+      "Address",
+      "Notification",
+      "DiscountCode",
+      "Refund",
+      "Payment",
+      "PaymentProvider",
+      "Banner"
+    ],
+    "jhipsterVersion": "8.6.0",
+    "jwtSecretKey": "Zjk0NjZkZWM5MzMzYWJhNmQ0ZjZjYTJhNWVhZGY2ODYyMGI2OGY4NWNkOWNjNzJhOWMzZTliNjUwZDA1YzNjYmM0ZjkyYzVmZGY4YWFiMzExYjUxNzhlMjE1NzZlMDNlNzI0MzAzNDM3OTViY2JiNjdhYzJlZDJiNjg2MzZmM2Q=",
+    "languages": ["en"],
+    "lastLiquibaseTimestamp": 1724029817000,
+    "nativeLanguage": "en",
+    "packageFolder": "com/laofan/iantha",
+    "packageName": "com.laofan.iantha",
+    "prodDatabaseType": "postgresql"
+  }
+}

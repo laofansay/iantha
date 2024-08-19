@@ -1,0 +1,36 @@
+{
+  "annotations": {
+    "changelogDate": "20240819010317"
+  },
+  "applications": ["iantha"],
+  "fields": [
+    {
+      "fieldName": "orderId",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "productId",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "count",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "Float",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "discount",
+      "fieldType": "Float",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "OrderItem",
+  "relationships": [],
+  "searchEngine": "no"
+}

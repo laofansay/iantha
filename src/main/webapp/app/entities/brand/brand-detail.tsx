@@ -49,10 +49,6 @@ export const BrandDetail = () => {
             </span>
           </dt>
           <dd>{brandEntity.logo}</dd>
-          <dt>
-            <Translate contentKey="ianthaApp.brand.products">Products</Translate>
-          </dt>
-          <dd>{brandEntity.products ? brandEntity.products.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/brand" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

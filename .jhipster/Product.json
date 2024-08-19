@@ -1,0 +1,162 @@
+{
+  "annotations": {
+    "changelogDate": "20240819005817"
+  },
+  "applications": ["iantha"],
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "商品编码",
+      "fieldName": "transCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "documentation": "默认图",
+      "fieldName": "images",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "keywords",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "metadata",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "documentation": "成本价",
+      "fieldName": "guidePrice",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "documentation": "平台销售单价",
+      "fieldName": "price",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "documentation": "画线价",
+      "fieldName": "showPrice",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "discount",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "折扣",
+      "fieldName": "stock",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "库存",
+      "fieldName": "isPhysical",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "是否物理商品",
+      "fieldName": "isAvailable",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "是否可用",
+      "fieldName": "isFeatured",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "是否物色",
+      "fieldName": "status",
+      "fieldType": "ProdStatus",
+      "fieldValues": "PRE (预约发布),HOT (热门),EXP (正常),DOWN (售罄)"
+    },
+    {
+      "documentation": "销量,此处简单维护,期望接入进入销存系统",
+      "fieldName": "sellCount",
+      "fieldType": "Integer"
+    },
+    {
+      "documentation": "库存,此处简单维护,期望接入进入销存系统",
+      "fieldName": "stockCount",
+      "fieldType": "Integer"
+    },
+    {
+      "documentation": "上架状态",
+      "fieldName": "shelvesStatus",
+      "fieldType": "Boolean"
+    },
+    {
+      "documentation": "上架时间",
+      "fieldName": "shelvesDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Product",
+  "relationships": [
+    {
+      "otherEntityName": "brand",
+      "otherEntityRelationshipName": "products",
+      "relationshipName": "brand",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "category",
+      "otherEntityRelationshipName": "products",
+      "relationshipName": "categories",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "babyLabel",
+      "otherEntityRelationshipName": "products",
+      "relationshipName": "label",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "cartItem",
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "cartItems",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "babySpec",
+      "otherEntityRelationshipName": "products",
+      "relationshipName": "spec",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

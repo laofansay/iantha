@@ -1,0 +1,64 @@
+{
+  "annotations": {
+    "changelogDate": "20240819010117"
+  },
+  "applications": ["iantha"],
+  "documentation": "商品标签",
+  "fields": [
+    {
+      "documentation": "标签名称",
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "标签分类",
+      "fieldName": "labelCate",
+      "fieldType": "LabelCate",
+      "fieldTypeDocumentation": "标签分类",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "SEARCH (搜索类),STAT (统计类),RULE (规则类),ACTIVITY (活动类),NONE (其它)"
+    },
+    {
+      "documentation": "标签编码",
+      "fieldName": "labelCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "标签附加属性",
+      "fieldName": "labelAttr",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "创建者ID",
+      "fieldName": "identify",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "规则说明富文本",
+      "fieldName": "ruleReadme",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "documentation": "规则说明富文本",
+      "fieldName": "ruleExpression",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    }
+  ],
+  "name": "BabyLabel",
+  "relationships": [
+    {
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "label",
+      "relationshipName": "products",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

@@ -1,0 +1,98 @@
+{
+  "annotations": {
+    "changelogDate": "20240819010017"
+  },
+  "applications": ["iantha"],
+  "documentation": "商品规模",
+  "fields": [
+    {
+      "documentation": "规格编码",
+      "fieldName": "specCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "规规格标题",
+      "fieldName": "specTitle",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "规模规格描述",
+      "fieldName": "description",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "规规格标题",
+      "fieldName": "specQuantity",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "成本价",
+      "fieldName": "guidePrice",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "documentation": "单价",
+      "fieldName": "specPrice",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "documentation": "画线价",
+      "fieldName": "showPrice",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "documentation": "规格状态",
+      "fieldName": "specStatus",
+      "fieldType": "ProdStatus",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "PRE (预约发布),HOT (热门),EXP (正常),DOWN (售罄)"
+    },
+    {
+      "documentation": "规格图片",
+      "fieldName": "images",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "销量,此处简单维护,期望接入进入销存系统",
+      "fieldName": "sellCount",
+      "fieldType": "Integer"
+    },
+    {
+      "documentation": "库存,此处简单维护,期望接入进入销存系统",
+      "fieldName": "stockCount",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "BabySpec",
+  "relationships": [
+    {
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "spec",
+      "relationshipName": "products",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

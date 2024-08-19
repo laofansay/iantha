@@ -111,9 +111,6 @@ export const Category = () => {
                   <Translate contentKey="ianthaApp.category.updatedAt">Updated At</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('updatedAt')} />
                 </th>
-                <th>
-                  <Translate contentKey="ianthaApp.category.products">Products</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
                 <th />
               </tr>
             </thead>
@@ -131,7 +128,6 @@ export const Category = () => {
                   <td>{category.icon}</td>
                   <td>{category.createdAt ? <TextFormat type="date" value={category.createdAt} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>{category.updatedAt ? <TextFormat type="date" value={category.updatedAt} format={APP_DATE_FORMAT} /> : null}</td>
-                  <td>{category.products ? <Link to={`/product/${category.products.id}`}>{category.products.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/category/${category.id}`} color="info" size="sm" data-cy="entityDetailsButton">

@@ -61,9 +61,5 @@ public class CategoryAsserts {
      * @param expected the expected entity
      * @param actual the actual entity
      */
-    public static void assertCategoryUpdatableRelationshipsEquals(Category expected, Category actual) {
-        assertThat(expected)
-            .as("Verify Category relationships")
-            .satisfies(e -> assertThat(e.getProducts()).as("check products").isEqualTo(actual.getProducts()));
-    }
+    public static void assertCategoryUpdatableRelationshipsEquals(Category expected, Category actual) {}
 }

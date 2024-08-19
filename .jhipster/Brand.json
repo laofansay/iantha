@@ -1,0 +1,33 @@
+{
+  "annotations": {
+    "changelogDate": "20240819005717"
+  },
+  "applications": ["iantha"],
+  "documentation": "品牌",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "logo",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Brand",
+  "relationships": [
+    {
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "brand",
+      "relationshipName": "products",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

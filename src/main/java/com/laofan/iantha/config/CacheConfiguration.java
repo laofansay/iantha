@@ -54,13 +54,13 @@ public class CacheConfiguration {
             createCache(cm, com.laofan.iantha.domain.CartItem.class.getName());
             createCache(cm, com.laofan.iantha.domain.CartItem.class.getName() + ".carts");
             createCache(cm, com.laofan.iantha.domain.Brand.class.getName());
+            createCache(cm, com.laofan.iantha.domain.Brand.class.getName() + ".products");
             createCache(cm, com.laofan.iantha.domain.Product.class.getName());
+            createCache(cm, com.laofan.iantha.domain.Product.class.getName() + ".labels");
             createCache(cm, com.laofan.iantha.domain.Product.class.getName() + ".cartItems");
             createCache(cm, com.laofan.iantha.domain.Product.class.getName() + ".specs");
-            createCache(cm, com.laofan.iantha.domain.Product.class.getName() + ".labels");
-            createCache(cm, com.laofan.iantha.domain.Product.class.getName() + ".brands");
-            createCache(cm, com.laofan.iantha.domain.Product.class.getName() + ".categories");
             createCache(cm, com.laofan.iantha.domain.Category.class.getName());
+            createCache(cm, com.laofan.iantha.domain.Category.class.getName() + ".products");
             createCache(cm, com.laofan.iantha.domain.BabySpec.class.getName());
             createCache(cm, com.laofan.iantha.domain.BabyLabel.class.getName());
             createCache(cm, com.laofan.iantha.domain.Order.class.getName());

@@ -80,10 +80,6 @@ export const CategoryDetail = () => {
             </span>
           </dt>
           <dd>{categoryEntity.updatedAt ? <TextFormat value={categoryEntity.updatedAt} type="date" format={APP_DATE_FORMAT} /> : null}</dd>
-          <dt>
-            <Translate contentKey="ianthaApp.category.products">Products</Translate>
-          </dt>
-          <dd>{categoryEntity.products ? categoryEntity.products.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/category" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

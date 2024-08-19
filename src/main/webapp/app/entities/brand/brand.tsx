@@ -97,9 +97,6 @@ export const Brand = () => {
                 <th className="hand" onClick={sort('logo')}>
                   <Translate contentKey="ianthaApp.brand.logo">Logo</Translate> <FontAwesomeIcon icon={getSortIconByFieldName('logo')} />
                 </th>
-                <th>
-                  <Translate contentKey="ianthaApp.brand.products">Products</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
                 <th />
               </tr>
             </thead>
@@ -114,7 +111,6 @@ export const Brand = () => {
                   <td>{brand.title}</td>
                   <td>{brand.description}</td>
                   <td>{brand.logo}</td>
-                  <td>{brand.products ? <Link to={`/product/${brand.products.id}`}>{brand.products.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/brand/${brand.id}`} color="info" size="sm" data-cy="entityDetailsButton">

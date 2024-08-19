@@ -86,5 +86,10 @@ public class ProductAsserts {
      * @param expected the expected entity
      * @param actual the actual entity
      */
-    public static void assertProductUpdatableRelationshipsEquals(Product expected, Product actual) {}
+    public static void assertProductUpdatableRelationshipsEquals(Product expected, Product actual) {
+        assertThat(expected)
+            .as("Verify Product relationships")
+            .satisfies(e -> assertThat(e.getBrand()).as("check brand").isEqualTo(actual.getBrand()))
+            .satisfies(e -> assertThat(e.getCategories()).as("check categories").isEqualTo(actual.getCategories()));
+    }
 }

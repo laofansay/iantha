@@ -5,6 +5,8 @@ import static com.laofan.iantha.domain.ProductTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.laofan.iantha.web.rest.TestUtil;
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 class BrandTest {
@@ -28,10 +30,20 @@ class BrandTest {
         Brand brand = getBrandRandomSampleGenerator();
         Product productBack = getProductRandomSampleGenerator();
 
-        brand.setProducts(productBack);
-        assertThat(brand.getProducts()).isEqualTo(productBack);
+        brand.addProducts(productBack);
+        assertThat(brand.getProducts()).containsOnly(productBack);
+        assertThat(productBack.getBrand()).isEqualTo(brand);
 
-        brand.products(null);
-        assertThat(brand.getProducts()).isNull();
+        brand.removeProducts(productBack);
+        assertThat(brand.getProducts()).doesNotContain(productBack);
+        assertThat(productBack.getBrand()).isNull();
+
+        brand.products(new HashSet<>(Set.of(productBack)));
+        assertThat(brand.getProducts()).containsOnly(productBack);
+        assertThat(productBack.getBrand()).isEqualTo(brand);
+
+        brand.setProducts(new HashSet<>());
+        assertThat(brand.getProducts()).doesNotContain(productBack);
+        assertThat(productBack.getBrand()).isNull();
     }
 }

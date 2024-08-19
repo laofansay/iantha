@@ -30,6 +30,52 @@ class ProductTest {
     }
 
     @Test
+    void brandTest() {
+        Product product = getProductRandomSampleGenerator();
+        Brand brandBack = getBrandRandomSampleGenerator();
+
+        product.setBrand(brandBack);
+        assertThat(product.getBrand()).isEqualTo(brandBack);
+
+        product.brand(null);
+        assertThat(product.getBrand()).isNull();
+    }
+
+    @Test
+    void categoriesTest() {
+        Product product = getProductRandomSampleGenerator();
+        Category categoryBack = getCategoryRandomSampleGenerator();
+
+        product.setCategories(categoryBack);
+        assertThat(product.getCategories()).isEqualTo(categoryBack);
+
+        product.categories(null);
+        assertThat(product.getCategories()).isNull();
+    }
+
+    @Test
+    void labelTest() {
+        Product product = getProductRandomSampleGenerator();
+        BabyLabel babyLabelBack = getBabyLabelRandomSampleGenerator();
+
+        product.addLabel(babyLabelBack);
+        assertThat(product.getLabels()).containsOnly(babyLabelBack);
+        assertThat(babyLabelBack.getProducts()).isEqualTo(product);
+
+        product.removeLabel(babyLabelBack);
+        assertThat(product.getLabels()).doesNotContain(babyLabelBack);
+        assertThat(babyLabelBack.getProducts()).isNull();
+
+        product.labels(new HashSet<>(Set.of(babyLabelBack)));
+        assertThat(product.getLabels()).containsOnly(babyLabelBack);
+        assertThat(babyLabelBack.getProducts()).isEqualTo(product);
+
+        product.setLabels(new HashSet<>());
+        assertThat(product.getLabels()).doesNotContain(babyLabelBack);
+        assertThat(babyLabelBack.getProducts()).isNull();
+    }
+
+    @Test
     void cartItemsTest() {
         Product product = getProductRandomSampleGenerator();
         CartItem cartItemBack = getCartItemRandomSampleGenerator();
@@ -71,71 +117,5 @@ class ProductTest {
         product.setSpecs(new HashSet<>());
         assertThat(product.getSpecs()).doesNotContain(babySpecBack);
         assertThat(babySpecBack.getProducts()).isNull();
-    }
-
-    @Test
-    void labelTest() {
-        Product product = getProductRandomSampleGenerator();
-        BabyLabel babyLabelBack = getBabyLabelRandomSampleGenerator();
-
-        product.addLabel(babyLabelBack);
-        assertThat(product.getLabels()).containsOnly(babyLabelBack);
-        assertThat(babyLabelBack.getProducts()).isEqualTo(product);
-
-        product.removeLabel(babyLabelBack);
-        assertThat(product.getLabels()).doesNotContain(babyLabelBack);
-        assertThat(babyLabelBack.getProducts()).isNull();
-
-        product.labels(new HashSet<>(Set.of(babyLabelBack)));
-        assertThat(product.getLabels()).containsOnly(babyLabelBack);
-        assertThat(babyLabelBack.getProducts()).isEqualTo(product);
-
-        product.setLabels(new HashSet<>());
-        assertThat(product.getLabels()).doesNotContain(babyLabelBack);
-        assertThat(babyLabelBack.getProducts()).isNull();
-    }
-
-    @Test
-    void brandTest() {
-        Product product = getProductRandomSampleGenerator();
-        Brand brandBack = getBrandRandomSampleGenerator();
-
-        product.addBrand(brandBack);
-        assertThat(product.getBrands()).containsOnly(brandBack);
-        assertThat(brandBack.getProducts()).isEqualTo(product);
-
-        product.removeBrand(brandBack);
-        assertThat(product.getBrands()).doesNotContain(brandBack);
-        assertThat(brandBack.getProducts()).isNull();
-
-        product.brands(new HashSet<>(Set.of(brandBack)));
-        assertThat(product.getBrands()).containsOnly(brandBack);
-        assertThat(brandBack.getProducts()).isEqualTo(product);
-
-        product.setBrands(new HashSet<>());
-        assertThat(product.getBrands()).doesNotContain(brandBack);
-        assertThat(brandBack.getProducts()).isNull();
-    }
-
-    @Test
-    void categoriesTest() {
-        Product product = getProductRandomSampleGenerator();
-        Category categoryBack = getCategoryRandomSampleGenerator();
-
-        product.addCategories(categoryBack);
-        assertThat(product.getCategories()).containsOnly(categoryBack);
-        assertThat(categoryBack.getProducts()).isEqualTo(product);
-
-        product.removeCategories(categoryBack);
-        assertThat(product.getCategories()).doesNotContain(categoryBack);
-        assertThat(categoryBack.getProducts()).isNull();
-
-        product.categories(new HashSet<>(Set.of(categoryBack)));
-        assertThat(product.getCategories()).containsOnly(categoryBack);
-        assertThat(categoryBack.getProducts()).isEqualTo(product);
-
-        product.setCategories(new HashSet<>());
-        assertThat(product.getCategories()).doesNotContain(categoryBack);
-        assertThat(categoryBack.getProducts()).isNull();
     }
 }

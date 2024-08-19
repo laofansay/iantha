@@ -8,8 +8,6 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IProduct } from 'app/shared/model/product.model';
-import { getEntities as getProducts } from 'app/entities/product/product.reducer';
 import { IBrand } from 'app/shared/model/brand.model';
 import { getEntity, updateEntity, createEntity, reset } from './brand.reducer';
 
@@ -21,7 +19,6 @@ export const BrandUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const products = useAppSelector(state => state.product.entities);
   const brandEntity = useAppSelector(state => state.brand.entity);
   const loading = useAppSelector(state => state.brand.loading);
   const updating = useAppSelector(state => state.brand.updating);
@@ -37,8 +34,6 @@ export const BrandUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
-
-    dispatch(getProducts({}));
   }, []);
 
   useEffect(() => {
@@ -56,7 +51,6 @@ export const BrandUpdate = () => {
     const entity = {
       ...brandEntity,
       ...values,
-      products: products.find(it => it.id.toString() === values.products?.toString()),
     };
 
     if (isNew) {
@@ -71,7 +65,6 @@ export const BrandUpdate = () => {
       ? {}
       : {
           ...brandEntity,
-          products: brandEntity?.products?.id,
         };
 
   return (
@@ -117,22 +110,6 @@ export const BrandUpdate = () => {
                 type="text"
               />
               <ValidatedField label={translate('ianthaApp.brand.logo')} id="brand-logo" name="logo" data-cy="logo" type="text" />
-              <ValidatedField
-                id="brand-products"
-                name="products"
-                data-cy="products"
-                label={translate('ianthaApp.brand.products')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {products
-                  ? products.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/brand" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

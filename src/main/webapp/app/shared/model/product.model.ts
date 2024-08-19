@@ -1,4 +1,6 @@
 import dayjs from 'dayjs';
+import { IBrand } from 'app/shared/model/brand.model';
+import { ICategory } from 'app/shared/model/category.model';
 import { ProdStatus } from 'app/shared/model/enumerations/prod-status.model';
 
 export interface IProduct {
@@ -24,6 +26,8 @@ export interface IProduct {
   shelvesDate?: dayjs.Dayjs | null;
   createdAt?: dayjs.Dayjs;
   updatedAt?: dayjs.Dayjs;
+  brand?: IBrand | null;
+  categories?: ICategory | null;
 }
 
 export const defaultValue: Readonly<IProduct> = {
