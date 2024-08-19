@@ -103,20 +103,20 @@ export const CartItemUpdate = () => {
                 />
               ) : null}
               <ValidatedField
-                label={translate('ianthaApp.cartItem.cartId')}
-                id="cart-item-cartId"
-                name="cartId"
-                data-cy="cartId"
+                label={translate('ianthaApp.cartItem.cid')}
+                id="cart-item-cid"
+                name="cid"
+                data-cy="cid"
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
               />
               <ValidatedField
-                label={translate('ianthaApp.cartItem.productId')}
-                id="cart-item-productId"
-                name="productId"
-                data-cy="productId"
+                label={translate('ianthaApp.cartItem.prodId')}
+                id="cart-item-prodId"
+                name="prodId"
+                data-cy="prodId"
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },

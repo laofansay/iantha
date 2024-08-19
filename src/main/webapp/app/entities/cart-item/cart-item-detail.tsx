@@ -32,17 +32,17 @@ export const CartItemDetail = () => {
           </dt>
           <dd>{cartItemEntity.id}</dd>
           <dt>
-            <span id="cartId">
-              <Translate contentKey="ianthaApp.cartItem.cartId">Cart Id</Translate>
+            <span id="cid">
+              <Translate contentKey="ianthaApp.cartItem.cid">Cid</Translate>
             </span>
           </dt>
-          <dd>{cartItemEntity.cartId}</dd>
+          <dd>{cartItemEntity.cid}</dd>
           <dt>
-            <span id="productId">
-              <Translate contentKey="ianthaApp.cartItem.productId">Product Id</Translate>
+            <span id="prodId">
+              <Translate contentKey="ianthaApp.cartItem.prodId">Prod Id</Translate>
             </span>
           </dt>
-          <dd>{cartItemEntity.productId}</dd>
+          <dd>{cartItemEntity.prodId}</dd>
           <dt>
             <span id="count">
               <Translate contentKey="ianthaApp.cartItem.count">Count</Translate>

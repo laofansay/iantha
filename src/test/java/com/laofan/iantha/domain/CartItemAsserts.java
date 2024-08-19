@@ -47,8 +47,8 @@ public class CartItemAsserts {
     public static void assertCartItemUpdatableFieldsEquals(CartItem expected, CartItem actual) {
         assertThat(expected)
             .as("Verify CartItem relevant properties")
-            .satisfies(e -> assertThat(e.getCartId()).as("check cartId").isEqualTo(actual.getCartId()))
-            .satisfies(e -> assertThat(e.getProductId()).as("check productId").isEqualTo(actual.getProductId()))
+            .satisfies(e -> assertThat(e.getCid()).as("check cid").isEqualTo(actual.getCid()))
+            .satisfies(e -> assertThat(e.getProdId()).as("check prodId").isEqualTo(actual.getProdId()))
             .satisfies(e -> assertThat(e.getCount()).as("check count").isEqualTo(actual.getCount()));
     }
 

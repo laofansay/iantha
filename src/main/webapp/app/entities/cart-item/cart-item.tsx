@@ -87,13 +87,12 @@ export const CartItem = () => {
                 <th className="hand" onClick={sort('id')}>
                   <Translate contentKey="ianthaApp.cartItem.id">ID</Translate> <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
-                <th className="hand" onClick={sort('cartId')}>
-                  <Translate contentKey="ianthaApp.cartItem.cartId">Cart Id</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('cartId')} />
+                <th className="hand" onClick={sort('cid')}>
+                  <Translate contentKey="ianthaApp.cartItem.cid">Cid</Translate> <FontAwesomeIcon icon={getSortIconByFieldName('cid')} />
                 </th>
-                <th className="hand" onClick={sort('productId')}>
-                  <Translate contentKey="ianthaApp.cartItem.productId">Product Id</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('productId')} />
+                <th className="hand" onClick={sort('prodId')}>
+                  <Translate contentKey="ianthaApp.cartItem.prodId">Prod Id</Translate>{' '}
+                  <FontAwesomeIcon icon={getSortIconByFieldName('prodId')} />
                 </th>
                 <th className="hand" onClick={sort('count')}>
                   <Translate contentKey="ianthaApp.cartItem.count">Count</Translate>{' '}
@@ -113,8 +112,8 @@ export const CartItem = () => {
                       {cartItem.id}
                     </Button>
                   </td>
-                  <td>{cartItem.cartId}</td>
-                  <td>{cartItem.productId}</td>
+                  <td>{cartItem.cid}</td>
+                  <td>{cartItem.prodId}</td>
                   <td>{cartItem.count}</td>
                   <td>{cartItem.product ? <Link to={`/product/${cartItem.product.id}`}>{cartItem.product.id}</Link> : ''}</td>
                   <td className="text-end">

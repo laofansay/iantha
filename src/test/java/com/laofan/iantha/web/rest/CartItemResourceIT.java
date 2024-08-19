@@ -32,11 +32,11 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class CartItemResourceIT {
 
-    private static final String DEFAULT_CART_ID = "AAAAAAAAAA";
-    private static final String UPDATED_CART_ID = "BBBBBBBBBB";
+    private static final String DEFAULT_CID = "AAAAAAAAAA";
+    private static final String UPDATED_CID = "BBBBBBBBBB";
 
-    private static final String DEFAULT_PRODUCT_ID = "AAAAAAAAAA";
-    private static final String UPDATED_PRODUCT_ID = "BBBBBBBBBB";
+    private static final String DEFAULT_PROD_ID = "AAAAAAAAAA";
+    private static final String UPDATED_PROD_ID = "BBBBBBBBBB";
 
     private static final Integer DEFAULT_COUNT = 1;
     private static final Integer UPDATED_COUNT = 2;
@@ -70,7 +70,7 @@ class CartItemResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static CartItem createEntity(EntityManager em) {
-        CartItem cartItem = new CartItem().cartId(DEFAULT_CART_ID).productId(DEFAULT_PRODUCT_ID).count(DEFAULT_COUNT);
+        CartItem cartItem = new CartItem().cid(DEFAULT_CID).prodId(DEFAULT_PROD_ID).count(DEFAULT_COUNT);
         return cartItem;
     }
 
@@ -81,7 +81,7 @@ class CartItemResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static CartItem createUpdatedEntity(EntityManager em) {
-        CartItem cartItem = new CartItem().cartId(UPDATED_CART_ID).productId(UPDATED_PRODUCT_ID).count(UPDATED_COUNT);
+        CartItem cartItem = new CartItem().cid(UPDATED_CID).prodId(UPDATED_PROD_ID).count(UPDATED_COUNT);
         return cartItem;
     }
 
@@ -139,10 +139,10 @@ class CartItemResourceIT {
 
     @Test
     @Transactional
-    void checkCartIdIsRequired() throws Exception {
+    void checkCidIsRequired() throws Exception {
         long databaseSizeBeforeTest = getRepositoryCount();
         // set the field null
-        cartItem.setCartId(null);
+        cartItem.setCid(null);
 
         // Create the CartItem, which fails.
 
@@ -155,10 +155,10 @@ class CartItemResourceIT {
 
     @Test
     @Transactional
-    void checkProductIdIsRequired() throws Exception {
+    void checkProdIdIsRequired() throws Exception {
         long databaseSizeBeforeTest = getRepositoryCount();
         // set the field null
-        cartItem.setProductId(null);
+        cartItem.setProdId(null);
 
         // Create the CartItem, which fails.
 
@@ -197,8 +197,8 @@ class CartItemResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(cartItem.getId().intValue())))
-            .andExpect(jsonPath("$.[*].cartId").value(hasItem(DEFAULT_CART_ID)))
-            .andExpect(jsonPath("$.[*].productId").value(hasItem(DEFAULT_PRODUCT_ID)))
+            .andExpect(jsonPath("$.[*].cid").value(hasItem(DEFAULT_CID)))
+            .andExpect(jsonPath("$.[*].prodId").value(hasItem(DEFAULT_PROD_ID)))
             .andExpect(jsonPath("$.[*].count").value(hasItem(DEFAULT_COUNT)));
     }
 
@@ -214,8 +214,8 @@ class CartItemResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(cartItem.getId().intValue()))
-            .andExpect(jsonPath("$.cartId").value(DEFAULT_CART_ID))
-            .andExpect(jsonPath("$.productId").value(DEFAULT_PRODUCT_ID))
+            .andExpect(jsonPath("$.cid").value(DEFAULT_CID))
+            .andExpect(jsonPath("$.prodId").value(DEFAULT_PROD_ID))
             .andExpect(jsonPath("$.count").value(DEFAULT_COUNT));
     }
 
@@ -238,7 +238,7 @@ class CartItemResourceIT {
         CartItem updatedCartItem = cartItemRepository.findById(cartItem.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedCartItem are not directly saved in db
         em.detach(updatedCartItem);
-        updatedCartItem.cartId(UPDATED_CART_ID).productId(UPDATED_PRODUCT_ID).count(UPDATED_COUNT);
+        updatedCartItem.cid(UPDATED_CID).prodId(UPDATED_PROD_ID).count(UPDATED_COUNT);
 
         restCartItemMockMvc
             .perform(
@@ -316,7 +316,7 @@ class CartItemResourceIT {
         CartItem partialUpdatedCartItem = new CartItem();
         partialUpdatedCartItem.setId(cartItem.getId());
 
-        partialUpdatedCartItem.cartId(UPDATED_CART_ID).productId(UPDATED_PRODUCT_ID).count(UPDATED_COUNT);
+        partialUpdatedCartItem.cid(UPDATED_CID).prodId(UPDATED_PROD_ID).count(UPDATED_COUNT);
 
         restCartItemMockMvc
             .perform(
@@ -344,7 +344,7 @@ class CartItemResourceIT {
         CartItem partialUpdatedCartItem = new CartItem();
         partialUpdatedCartItem.setId(cartItem.getId());
 
-        partialUpdatedCartItem.cartId(UPDATED_CART_ID).productId(UPDATED_PRODUCT_ID).count(UPDATED_COUNT);
+        partialUpdatedCartItem.cid(UPDATED_CID).prodId(UPDATED_PROD_ID).count(UPDATED_COUNT);
 
         restCartItemMockMvc
             .perform(

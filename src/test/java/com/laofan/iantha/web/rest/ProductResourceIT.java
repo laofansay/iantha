@@ -46,11 +46,11 @@ class ProductResourceIT {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
-    private static final String DEFAULT_IMAGES = "AAAAAAAAAA";
-    private static final String UPDATED_IMAGES = "BBBBBBBBBB";
+    private static final String[] DEFAULT_IMAGES = new String[]{"AAAAAAAAAA"};
+    private static final String[] UPDATED_IMAGES = new String[]{"BBBBBBBBBB"};
 
-    private static final String DEFAULT_KEYWORDS = "AAAAAAAAAA";
-    private static final String UPDATED_KEYWORDS = "BBBBBBBBBB";
+    private static final String[] DEFAULT_KEYWORDS = new String[]{"AAAAAAAAAA"};
+    private static final String[] UPDATED_KEYWORDS = new String[]{"BBBBBBBBBB"};
 
     private static final String DEFAULT_METADATA = "AAAAAAAAAA";
     private static final String UPDATED_METADATA = "BBBBBBBBBB";

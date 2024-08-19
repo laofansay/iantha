@@ -123,11 +123,11 @@ public class CartItemResource {
         Optional<CartItem> result = cartItemRepository
             .findById(cartItem.getId())
             .map(existingCartItem -> {
-                if (cartItem.getCartId() != null) {
-                    existingCartItem.setCartId(cartItem.getCartId());
+                if (cartItem.getCid() != null) {
+                    existingCartItem.setCid(cartItem.getCid());
                 }
-                if (cartItem.getProductId() != null) {
-                    existingCartItem.setProductId(cartItem.getProductId());
+                if (cartItem.getProdId() != null) {
+                    existingCartItem.setProdId(cartItem.getProdId());
                 }
                 if (cartItem.getCount() != null) {
                     existingCartItem.setCount(cartItem.getCount());

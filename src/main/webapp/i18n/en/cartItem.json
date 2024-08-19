@@ -18,8 +18,8 @@
         "title": "Cart Item"
       },
       "id": "ID",
-      "cartId": "Cart Id",
-      "productId": "Product Id",
+      "cid": "Cid",
+      "prodId": "Prod Id",
       "count": "Count",
       "product": "Product",
       "cart": "Cart"
