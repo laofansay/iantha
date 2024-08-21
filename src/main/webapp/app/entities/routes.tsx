@@ -3,7 +3,6 @@ import { Route } from 'react-router-dom';
 
 import ErrorBoundaryRoutes from 'app/shared/error/error-boundary-routes';
 
-import Cart from './cart';
 import CartItem from './cart-item';
 import Brand from './brand';
 import Product from './product';
@@ -19,6 +18,7 @@ import Refund from './refund';
 import Payment from './payment';
 import PaymentProvider from './payment-provider';
 import Banner from './banner';
+import Wishlist from './wishlist';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 export default () => {
@@ -26,7 +26,6 @@ export default () => {
     <div>
       <ErrorBoundaryRoutes>
         {/* prettier-ignore */}
-        <Route path="cart/*" element={<Cart />} />
         <Route path="cart-item/*" element={<CartItem />} />
         <Route path="brand/*" element={<Brand />} />
         <Route path="product/*" element={<Product />} />
@@ -42,6 +41,7 @@ export default () => {
         <Route path="payment/*" element={<Payment />} />
         <Route path="payment-provider/*" element={<PaymentProvider />} />
         <Route path="banner/*" element={<Banner />} />
+        <Route path="wishlist/*" element={<Wishlist />} />
         {/* jhipster-needle-add-route-path - JHipster will add routes here */}
       </ErrorBoundaryRoutes>
     </div>

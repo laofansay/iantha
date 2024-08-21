@@ -8,6 +8,10 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IProduct } from 'app/shared/model/product.model';
+import { getEntities as getProducts } from 'app/entities/product/product.reducer';
+import { IOrder } from 'app/shared/model/order.model';
+import { getEntities as getOrders } from 'app/entities/order/order.reducer';
 import { IOrderItem } from 'app/shared/model/order-item.model';
 import { getEntity, updateEntity, createEntity, reset } from './order-item.reducer';
 
@@ -19,6 +23,8 @@ export const OrderItemUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
+  const products = useAppSelector(state => state.product.entities);
+  const orders = useAppSelector(state => state.order.entities);
   const orderItemEntity = useAppSelector(state => state.orderItem.entity);
   const loading = useAppSelector(state => state.orderItem.loading);
   const updating = useAppSelector(state => state.orderItem.updating);
@@ -34,6 +40,9 @@ export const OrderItemUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
+
+    dispatch(getProducts({}));
+    dispatch(getOrders({}));
   }, []);
 
   useEffect(() => {
@@ -60,6 +69,8 @@ export const OrderItemUpdate = () => {
     const entity = {
       ...orderItemEntity,
       ...values,
+      product: products.find(it => it.id.toString() === values.product?.toString()),
+      orderItem: orders.find(it => it.id.toString() === values.orderItem?.toString()),
     };
 
     if (isNew) {
@@ -74,6 +85,8 @@ export const OrderItemUpdate = () => {
       ? {}
       : {
           ...orderItemEntity,
+          product: orderItemEntity?.product?.id,
+          orderItem: orderItemEntity?.orderItem?.id,
         };
 
   return (
@@ -101,26 +114,6 @@ export const OrderItemUpdate = () => {
                   validate={{ required: true }}
                 />
               ) : null}
-              <ValidatedField
-                label={translate('ianthaApp.orderItem.orderId')}
-                id="order-item-orderId"
-                name="orderId"
-                data-cy="orderId"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                }}
-              />
-              <ValidatedField
-                label={translate('ianthaApp.orderItem.productId')}
-                id="order-item-productId"
-                name="productId"
-                data-cy="productId"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                }}
-              />
               <ValidatedField
                 label={translate('ianthaApp.orderItem.count')}
                 id="order-item-count"
@@ -154,6 +147,38 @@ export const OrderItemUpdate = () => {
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
+              <ValidatedField
+                id="order-item-product"
+                name="product"
+                data-cy="product"
+                label={translate('ianthaApp.orderItem.product')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {products
+                  ? products.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <ValidatedField
+                id="order-item-orderItem"
+                name="orderItem"
+                data-cy="orderItem"
+                label={translate('ianthaApp.orderItem.orderItem')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {orders
+                  ? orders.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/order-item" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

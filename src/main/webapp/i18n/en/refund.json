@@ -21,8 +21,7 @@
       "amount": "Amount",
       "reason": "Reason",
       "createdAt": "Created At",
-      "updatedAt": "Updated At",
-      "order": "Order"
+      "updatedAt": "Updated At"
     }
   }
 }

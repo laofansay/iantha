@@ -7,9 +7,6 @@ const EntitiesMenu = () => {
   return (
     <>
       {/* prettier-ignore */}
-      <MenuItem icon="asterisk" to="/cart">
-        <Translate contentKey="global.menu.entities.cart" />
-      </MenuItem>
       <MenuItem icon="asterisk" to="/cart-item">
         <Translate contentKey="global.menu.entities.cartItem" />
       </MenuItem>
@@ -54,6 +51,9 @@ const EntitiesMenu = () => {
       </MenuItem>
       <MenuItem icon="asterisk" to="/banner">
         <Translate contentKey="global.menu.entities.banner" />
+      </MenuItem>
+      <MenuItem icon="asterisk" to="/wishlist">
+        <Translate contentKey="global.menu.entities.wishlist" />
       </MenuItem>
       {/* jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here */}
     </>

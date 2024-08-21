@@ -1,0 +1,61 @@
+{
+  "annotations": {
+    "changelogDate": "20240821094227"
+  },
+  "applications": ["iantha"],
+  "fields": [
+    {
+      "documentation": "标识码",
+      "fieldName": "identify",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "标识码",
+      "fieldName": "bizCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "收藏内容的描述信息",
+      "fieldName": "bizDesc",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "icon",
+      "fieldName": "bizIcon",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "收藏标题",
+      "fieldName": "bizTitle",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "documentation": "链接",
+      "fieldName": "link",
+      "fieldType": "String"
+    },
+    {
+      "documentation": "收藏类型",
+      "fieldName": "favCate",
+      "fieldType": "FavCate",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "PROD (商品),FRIEND (好友)",
+      "fieldValuesJavadocs": {
+        "FRIEND": "收藏好友",
+        "PROD": "收藏商品"
+      }
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "name": "Wishlist",
+  "relationships": [],
+  "searchEngine": "no"
+}

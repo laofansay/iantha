@@ -1,9 +1,10 @@
 {
   "annotations": {
-    "changelogDate": "20240819005617"
+    "changelogDate": "20240821092727"
   },
   "applications": ["iantha"],
-  "documentation": "购物项目",
+  "documentation": "购物车",
+  "dto": "mapstruct",
   "fields": [
     {
       "fieldName": "cid",
@@ -29,14 +30,8 @@
       "relationshipName": "product",
       "relationshipSide": "left",
       "relationshipType": "many-to-one"
-    },
-    {
-      "otherEntityName": "cart",
-      "otherEntityRelationshipName": "items",
-      "relationshipName": "cart",
-      "relationshipSide": "right",
-      "relationshipType": "one-to-many"
     }
   ],
-  "searchEngine": "no"
+  "searchEngine": "no",
+  "service": "serviceClass"
 }

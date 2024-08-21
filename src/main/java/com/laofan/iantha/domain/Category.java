@@ -1,7 +1,6 @@
 package com.laofan.iantha.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
@@ -31,7 +30,6 @@ public class Category implements Serializable {
     /**
      * 商品名称
      */
-    @Schema(description = "商品名称", required = true)
     @NotNull
     @Column(name = "title", nullable = false)
     private String title;
@@ -39,7 +37,6 @@ public class Category implements Serializable {
     /**
      * 分类描述
      */
-    @Schema(description = "分类描述", required = true)
     @NotNull
     @Column(name = "description", nullable = false)
     private String description;
@@ -47,7 +44,6 @@ public class Category implements Serializable {
     /**
      * 分类编码
      */
-    @Schema(description = "分类编码", required = true)
     @NotNull
     @Column(name = "cate_code", nullable = false)
     private String cateCode;
@@ -55,7 +51,6 @@ public class Category implements Serializable {
     /**
      * 分类图标
      */
-    @Schema(description = "分类图标", required = true)
     @NotNull
     @Column(name = "icon", nullable = false)
     private String icon;
@@ -70,7 +65,7 @@ public class Category implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "categories")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "brand", "categories", "labels", "cartItems", "specs" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "brand", "categories", "orderItem", "labels", "cartItems", "specs" }, allowSetters = true)
     private Set<Product> products = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

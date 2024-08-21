@@ -1,9 +1,10 @@
 {
   "annotations": {
-    "changelogDate": "20240819010017"
+    "changelogDate": "20240821093127"
   },
   "applications": ["iantha"],
   "documentation": "商品规模",
+  "dto": "mapstruct",
   "fields": [
     {
       "documentation": "规格编码",
@@ -94,5 +95,6 @@
       "relationshipType": "many-to-one"
     }
   ],
-  "searchEngine": "no"
+  "searchEngine": "no",
+  "service": "serviceClass"
 }

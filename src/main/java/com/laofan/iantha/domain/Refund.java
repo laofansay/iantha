@@ -1,12 +1,9 @@
 package com.laofan.iantha.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -42,11 +39,6 @@ public class Refund implements Serializable {
     @NotNull
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "refund")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "refund", "payments", "discountCodes" }, allowSetters = true)
-    private Set<Order> orders = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -113,37 +105,6 @@ public class Refund implements Serializable {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public Set<Order> getOrders() {
-        return this.orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        if (this.orders != null) {
-            this.orders.forEach(i -> i.setRefund(null));
-        }
-        if (orders != null) {
-            orders.forEach(i -> i.setRefund(this));
-        }
-        this.orders = orders;
-    }
-
-    public Refund orders(Set<Order> orders) {
-        this.setOrders(orders);
-        return this;
-    }
-
-    public Refund addOrder(Order order) {
-        this.orders.add(order);
-        order.setRefund(this);
-        return this;
-    }
-
-    public Refund removeOrder(Order order) {
-        this.orders.remove(order);
-        order.setRefund(null);
-        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

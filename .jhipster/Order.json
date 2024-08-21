@@ -1,8 +1,9 @@
 {
   "annotations": {
-    "changelogDate": "20240819010217"
+    "changelogDate": "20240821093327"
   },
   "applications": ["iantha"],
+  "dto": "mapstruct",
   "entityTableName": "jhi_order",
   "fields": [
     {
@@ -41,12 +42,12 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "isPaid",
+      "fieldName": "paid",
       "fieldType": "Boolean",
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "isCompleted",
+      "fieldName": "completed",
       "fieldType": "Boolean",
       "fieldValidateRules": ["required"]
     },
@@ -64,13 +65,6 @@
   "name": "Order",
   "relationships": [
     {
-      "otherEntityName": "refund",
-      "otherEntityRelationshipName": "order",
-      "relationshipName": "refund",
-      "relationshipSide": "left",
-      "relationshipType": "many-to-one"
-    },
-    {
       "otherEntityName": "payment",
       "otherEntityRelationshipName": "order",
       "relationshipName": "payments",
@@ -83,7 +77,15 @@
       "relationshipName": "discountCode",
       "relationshipSide": "right",
       "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "orderItem",
+      "otherEntityRelationshipName": "orderItem",
+      "relationshipName": "orderItem",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
     }
   ],
-  "searchEngine": "no"
+  "searchEngine": "no",
+  "service": "serviceClass"
 }

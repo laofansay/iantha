@@ -87,14 +87,6 @@ export const OrderItem = () => {
                 <th className="hand" onClick={sort('id')}>
                   <Translate contentKey="ianthaApp.orderItem.id">ID</Translate> <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
-                <th className="hand" onClick={sort('orderId')}>
-                  <Translate contentKey="ianthaApp.orderItem.orderId">Order Id</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('orderId')} />
-                </th>
-                <th className="hand" onClick={sort('productId')}>
-                  <Translate contentKey="ianthaApp.orderItem.productId">Product Id</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('productId')} />
-                </th>
                 <th className="hand" onClick={sort('count')}>
                   <Translate contentKey="ianthaApp.orderItem.count">Count</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('count')} />
@@ -107,6 +99,12 @@ export const OrderItem = () => {
                   <Translate contentKey="ianthaApp.orderItem.discount">Discount</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('discount')} />
                 </th>
+                <th>
+                  <Translate contentKey="ianthaApp.orderItem.product">Product</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  <Translate contentKey="ianthaApp.orderItem.orderItem">Order Item</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -118,11 +116,11 @@ export const OrderItem = () => {
                       {orderItem.id}
                     </Button>
                   </td>
-                  <td>{orderItem.orderId}</td>
-                  <td>{orderItem.productId}</td>
                   <td>{orderItem.count}</td>
                   <td>{orderItem.price}</td>
                   <td>{orderItem.discount}</td>
+                  <td>{orderItem.product ? <Link to={`/product/${orderItem.product.id}`}>{orderItem.product.id}</Link> : ''}</td>
+                  <td>{orderItem.orderItem ? <Link to={`/order/${orderItem.orderItem.id}`}>{orderItem.orderItem.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/order-item/${orderItem.id}`} color="info" size="sm" data-cy="entityDetailsButton">

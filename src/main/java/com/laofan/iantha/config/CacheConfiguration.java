@@ -50,9 +50,7 @@ public class CacheConfiguration {
             createCache(cm, com.laofan.iantha.domain.User.class.getName());
             createCache(cm, com.laofan.iantha.domain.Authority.class.getName());
             createCache(cm, com.laofan.iantha.domain.User.class.getName() + ".authorities");
-            createCache(cm, com.laofan.iantha.domain.Cart.class.getName());
             createCache(cm, com.laofan.iantha.domain.CartItem.class.getName());
-            createCache(cm, com.laofan.iantha.domain.CartItem.class.getName() + ".carts");
             createCache(cm, com.laofan.iantha.domain.Brand.class.getName());
             createCache(cm, com.laofan.iantha.domain.Brand.class.getName() + ".products");
             createCache(cm, com.laofan.iantha.domain.Product.class.getName());
@@ -66,16 +64,17 @@ public class CacheConfiguration {
             createCache(cm, com.laofan.iantha.domain.Order.class.getName());
             createCache(cm, com.laofan.iantha.domain.Order.class.getName() + ".payments");
             createCache(cm, com.laofan.iantha.domain.Order.class.getName() + ".discountCodes");
+            createCache(cm, com.laofan.iantha.domain.Order.class.getName() + ".orderItems");
             createCache(cm, com.laofan.iantha.domain.OrderItem.class.getName());
             createCache(cm, com.laofan.iantha.domain.Address.class.getName());
             createCache(cm, com.laofan.iantha.domain.Notification.class.getName());
             createCache(cm, com.laofan.iantha.domain.DiscountCode.class.getName());
             createCache(cm, com.laofan.iantha.domain.Refund.class.getName());
-            createCache(cm, com.laofan.iantha.domain.Refund.class.getName() + ".orders");
             createCache(cm, com.laofan.iantha.domain.Payment.class.getName());
             createCache(cm, com.laofan.iantha.domain.PaymentProvider.class.getName());
             createCache(cm, com.laofan.iantha.domain.PaymentProvider.class.getName() + ".orders");
             createCache(cm, com.laofan.iantha.domain.Banner.class.getName());
+            createCache(cm, com.laofan.iantha.domain.Wishlist.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

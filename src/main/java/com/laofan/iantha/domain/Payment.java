@@ -63,7 +63,7 @@ public class Payment implements Serializable {
     private Instant updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "refund", "payments", "discountCodes" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "payments", "discountCodes", "orderItems" }, allowSetters = true)
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)

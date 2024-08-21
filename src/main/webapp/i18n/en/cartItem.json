@@ -21,8 +21,7 @@
       "cid": "Cid",
       "prodId": "Prod Id",
       "count": "Count",
-      "product": "Product",
-      "cart": "Cart"
+      "product": "Product"
     }
   }
 }

@@ -25,13 +25,13 @@
       "payable": "Payable",
       "tax": "Tax",
       "discount": "Discount",
-      "isPaid": "Is Paid",
-      "isCompleted": "Is Completed",
+      "paid": "Paid",
+      "completed": "Completed",
       "createdAt": "Created At",
       "updatedAt": "Updated At",
-      "refund": "Refund",
       "payments": "Payments",
-      "discountCode": "Discount Code"
+      "discountCode": "Discount Code",
+      "orderItem": "Order Item"
     }
   }
 }

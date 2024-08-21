@@ -25,6 +25,13 @@ public class Address implements Serializable {
     private Long id;
 
     @NotNull
+    @Column(name = "tag", nullable = false)
+    private String tag;
+
+    @Column(name = "master")
+    private Boolean master;
+
+    @NotNull
     @Column(name = "country", nullable = false)
     private String country;
 
@@ -61,6 +68,32 @@ public class Address implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTag() {
+        return this.tag;
+    }
+
+    public Address tag(String tag) {
+        this.setTag(tag);
+        return this;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public Boolean getMaster() {
+        return this.master;
+    }
+
+    public Address master(Boolean master) {
+        this.setMaster(master);
+        return this;
+    }
+
+    public void setMaster(Boolean master) {
+        this.master = master;
     }
 
     public String getCountry() {
@@ -165,6 +198,8 @@ public class Address implements Serializable {
     public String toString() {
         return "Address{" +
             "id=" + getId() +
+            ", tag='" + getTag() + "'" +
+            ", master='" + getMaster() + "'" +
             ", country='" + getCountry() + "'" +
             ", address='" + getAddress() + "'" +
             ", city='" + getCity() + "'" +

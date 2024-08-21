@@ -32,18 +32,6 @@ export const OrderItemDetail = () => {
           </dt>
           <dd>{orderItemEntity.id}</dd>
           <dt>
-            <span id="orderId">
-              <Translate contentKey="ianthaApp.orderItem.orderId">Order Id</Translate>
-            </span>
-          </dt>
-          <dd>{orderItemEntity.orderId}</dd>
-          <dt>
-            <span id="productId">
-              <Translate contentKey="ianthaApp.orderItem.productId">Product Id</Translate>
-            </span>
-          </dt>
-          <dd>{orderItemEntity.productId}</dd>
-          <dt>
             <span id="count">
               <Translate contentKey="ianthaApp.orderItem.count">Count</Translate>
             </span>
@@ -61,6 +49,14 @@ export const OrderItemDetail = () => {
             </span>
           </dt>
           <dd>{orderItemEntity.discount}</dd>
+          <dt>
+            <Translate contentKey="ianthaApp.orderItem.product">Product</Translate>
+          </dt>
+          <dd>{orderItemEntity.product ? orderItemEntity.product.id : ''}</dd>
+          <dt>
+            <Translate contentKey="ianthaApp.orderItem.orderItem">Order Item</Translate>
+          </dt>
+          <dd>{orderItemEntity.orderItem ? orderItemEntity.orderItem.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/order-item" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

@@ -18,11 +18,11 @@
         "title": "Order Item"
       },
       "id": "ID",
-      "orderId": "Order Id",
-      "productId": "Product Id",
       "count": "Count",
       "price": "Price",
-      "discount": "Discount"
+      "discount": "Discount",
+      "product": "Product",
+      "orderItem": "Order Item"
     }
   }
 }

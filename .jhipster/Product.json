@@ -1,8 +1,9 @@
 {
   "annotations": {
-    "changelogDate": "20240819005817"
+    "changelogDate": "20240821092927"
   },
   "applications": ["iantha"],
+  "dto": "mapstruct",
   "fields": [
     {
       "fieldName": "title",
@@ -137,6 +138,13 @@
       "relationshipType": "many-to-one"
     },
     {
+      "otherEntityName": "orderItem",
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "orderItem",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-one"
+    },
+    {
       "otherEntityName": "babyLabel",
       "otherEntityRelationshipName": "products",
       "relationshipName": "label",
@@ -158,5 +166,6 @@
       "relationshipType": "one-to-many"
     }
   ],
-  "searchEngine": "no"
+  "searchEngine": "no",
+  "service": "serviceClass"
 }

@@ -2,6 +2,7 @@ package com.laofan.iantha.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.laofan.iantha.domain.enumeration.ProdStatus;
+import io.hypersistence.utils.hibernate.type.array.StringArrayType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -12,6 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 
 /**
  * A Product.
@@ -37,7 +39,6 @@ public class Product implements Serializable {
     /**
      * 商品编码
      */
-    @Schema(description = "商品编码", required = true)
     @NotNull
     @Column(name = "trans_code", nullable = false)
     private String transCode;
@@ -49,11 +50,13 @@ public class Product implements Serializable {
      * 默认图
      */
     @Schema(description = "默认图")
-    @Column(name = "images")
-    private String images;
+    @Column(name = "images",columnDefinition = "text[]")
+    @Type(StringArrayType.class)
+    private String[] images;
 
-    @Column(name = "keywords")
-    private String keywords;
+    @Column(name = "keywords",columnDefinition = "text[]")
+    @Type(StringArrayType.class)
+    private String[] keywords;
 
     @Lob
     @Column(name = "metadata")
@@ -62,7 +65,6 @@ public class Product implements Serializable {
     /**
      * 成本价
      */
-    @Schema(description = "成本价", required = true)
     @NotNull
     @DecimalMin(value = "0")
     @Column(name = "guide_price", precision = 21, scale = 2, nullable = false)
@@ -71,7 +73,6 @@ public class Product implements Serializable {
     /**
      * 平台销售单价
      */
-    @Schema(description = "平台销售单价", required = true)
     @NotNull
     @DecimalMin(value = "0")
     @Column(name = "price", precision = 21, scale = 2, nullable = false)
@@ -80,7 +81,6 @@ public class Product implements Serializable {
     /**
      * 画线价
      */
-    @Schema(description = "画线价", required = true)
     @NotNull
     @DecimalMin(value = "0")
     @Column(name = "show_price", precision = 21, scale = 2, nullable = false)
@@ -93,7 +93,6 @@ public class Product implements Serializable {
     /**
      * 折扣
      */
-    @Schema(description = "折扣", required = true)
     @NotNull
     @Column(name = "stock", nullable = false)
     private Integer stock;
@@ -101,7 +100,6 @@ public class Product implements Serializable {
     /**
      * 库存
      */
-    @Schema(description = "库存", required = true)
     @NotNull
     @Column(name = "is_physical", nullable = false)
     private Boolean isPhysical;
@@ -109,7 +107,6 @@ public class Product implements Serializable {
     /**
      * 是否物理商品
      */
-    @Schema(description = "是否物理商品", required = true)
     @NotNull
     @Column(name = "is_available", nullable = false)
     private Boolean isAvailable;
@@ -117,7 +114,6 @@ public class Product implements Serializable {
     /**
      * 是否可用
      */
-    @Schema(description = "是否可用", required = true)
     @NotNull
     @Column(name = "is_featured", nullable = false)
     private Boolean isFeatured;
@@ -125,7 +121,6 @@ public class Product implements Serializable {
     /**
      * 是否物色
      */
-    @Schema(description = "是否物色")
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private ProdStatus status;
@@ -133,28 +128,24 @@ public class Product implements Serializable {
     /**
      * 销量,此处简单维护,期望接入进入销存系统
      */
-    @Schema(description = "销量,此处简单维护,期望接入进入销存系统")
     @Column(name = "sell_count")
     private Integer sellCount;
 
     /**
      * 库存,此处简单维护,期望接入进入销存系统
      */
-    @Schema(description = "库存,此处简单维护,期望接入进入销存系统")
     @Column(name = "stock_count")
     private Integer stockCount;
 
     /**
      * 上架状态
      */
-    @Schema(description = "上架状态")
     @Column(name = "shelves_status")
     private Boolean shelvesStatus;
 
     /**
      * 上架时间
      */
-    @Schema(description = "上架时间")
     @Column(name = "shelves_date")
     private Instant shelvesDate;
 
@@ -174,6 +165,10 @@ public class Product implements Serializable {
     @JsonIgnoreProperties(value = { "products" }, allowSetters = true)
     private Category categories;
 
+    @JsonIgnoreProperties(value = { "product", "orderItem" }, allowSetters = true)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "product")
+    private OrderItem orderItem;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "products" }, allowSetters = true)
@@ -181,7 +176,7 @@ public class Product implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "product", "carts" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "product" }, allowSetters = true)
     private Set<CartItem> cartItems = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "products")
@@ -243,29 +238,29 @@ public class Product implements Serializable {
         this.description = description;
     }
 
-    public String getImages() {
+    public String[] getImages() {
         return this.images;
     }
 
-    public Product images(String images) {
+    public Product images(String[] images) {
         this.setImages(images);
         return this;
     }
 
-    public void setImages(String images) {
+    public void setImages(String[] images) {
         this.images = images;
     }
 
-    public String getKeywords() {
+    public String[] getKeywords() {
         return this.keywords;
     }
 
-    public Product keywords(String keywords) {
+    public Product keywords(String[] keywords) {
         this.setKeywords(keywords);
         return this;
     }
 
-    public void setKeywords(String keywords) {
+    public void setKeywords(String[] keywords) {
         this.keywords = keywords;
     }
 
@@ -500,6 +495,25 @@ public class Product implements Serializable {
 
     public Product categories(Category category) {
         this.setCategories(category);
+        return this;
+    }
+
+    public OrderItem getOrderItem() {
+        return this.orderItem;
+    }
+
+    public void setOrderItem(OrderItem orderItem) {
+        if (this.orderItem != null) {
+            this.orderItem.setProduct(null);
+        }
+        if (orderItem != null) {
+            orderItem.setProduct(this);
+        }
+        this.orderItem = orderItem;
+    }
+
+    public Product orderItem(OrderItem orderItem) {
+        this.setOrderItem(orderItem);
         return this;
     }
 

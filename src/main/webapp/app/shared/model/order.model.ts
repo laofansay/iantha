@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import { IRefund } from 'app/shared/model/refund.model';
 
 export interface IOrder {
   id?: number;
@@ -10,14 +9,13 @@ export interface IOrder {
   payable?: number;
   tax?: number;
   discount?: number;
-  isPaid?: boolean;
-  isCompleted?: boolean;
+  paid?: boolean;
+  completed?: boolean;
   createdAt?: dayjs.Dayjs;
   updatedAt?: dayjs.Dayjs;
-  refund?: IRefund | null;
 }
 
 export const defaultValue: Readonly<IOrder> = {
-  isPaid: false,
-  isCompleted: false,
+  paid: false,
+  completed: false,
 };

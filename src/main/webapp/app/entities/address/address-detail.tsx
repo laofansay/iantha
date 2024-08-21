@@ -33,6 +33,18 @@ export const AddressDetail = () => {
           </dt>
           <dd>{addressEntity.id}</dd>
           <dt>
+            <span id="tag">
+              <Translate contentKey="ianthaApp.address.tag">Tag</Translate>
+            </span>
+          </dt>
+          <dd>{addressEntity.tag}</dd>
+          <dt>
+            <span id="master">
+              <Translate contentKey="ianthaApp.address.master">Master</Translate>
+            </span>
+          </dt>
+          <dd>{addressEntity.master ? 'true' : 'false'}</dd>
+          <dt>
             <span id="country">
               <Translate contentKey="ianthaApp.address.country">Country</Translate>
             </span>

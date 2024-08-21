@@ -1,7 +1,6 @@
 package com.laofan.iantha.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
@@ -13,7 +12,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 /**
  * 品牌
  */
-@Schema(description = "品牌")
 @Entity
 @Table(name = "brand")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -40,7 +38,7 @@ public class Brand implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "brand")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "brand", "categories", "labels", "cartItems", "specs" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "brand", "categories", "orderItem", "labels", "cartItems", "specs" }, allowSetters = true)
     private Set<Product> products = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

@@ -2,7 +2,6 @@ package com.laofan.iantha.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.laofan.iantha.domain.enumeration.LabelCate;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
@@ -12,7 +11,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 /**
  * 商品标签
  */
-@Schema(description = "商品标签")
 @Entity
 @Table(name = "baby_label")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -30,7 +28,6 @@ public class BabyLabel implements Serializable {
     /**
      * 标签名称
      */
-    @Schema(description = "标签名称", required = true)
     @NotNull
     @Column(name = "title", nullable = false)
     private String title;
@@ -38,7 +35,6 @@ public class BabyLabel implements Serializable {
     /**
      * 标签分类
      */
-    @Schema(description = "标签分类", required = true)
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "label_cate", nullable = false)
@@ -47,7 +43,6 @@ public class BabyLabel implements Serializable {
     /**
      * 标签编码
      */
-    @Schema(description = "标签编码", required = true)
     @NotNull
     @Column(name = "label_code", nullable = false)
     private String labelCode;
@@ -55,7 +50,6 @@ public class BabyLabel implements Serializable {
     /**
      * 标签附加属性
      */
-    @Schema(description = "标签附加属性", required = true)
     @NotNull
     @Column(name = "label_attr", nullable = false)
     private String labelAttr;
@@ -63,7 +57,6 @@ public class BabyLabel implements Serializable {
     /**
      * 创建者ID
      */
-    @Schema(description = "创建者ID", required = true)
     @NotNull
     @Column(name = "identify", nullable = false)
     private String identify;
@@ -71,7 +64,6 @@ public class BabyLabel implements Serializable {
     /**
      * 规则说明富文本
      */
-    @Schema(description = "规则说明富文本")
     @Lob
     @Column(name = "rule_readme")
     private String ruleReadme;
@@ -79,13 +71,12 @@ public class BabyLabel implements Serializable {
     /**
      * 规则说明富文本
      */
-    @Schema(description = "规则说明富文本")
     @Lob
     @Column(name = "rule_expression")
     private String ruleExpression;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "brand", "categories", "labels", "cartItems", "specs" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "brand", "categories", "orderItem", "labels", "cartItems", "specs" }, allowSetters = true)
     private Product products;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

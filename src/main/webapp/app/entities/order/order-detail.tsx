@@ -75,17 +75,17 @@ export const OrderDetail = () => {
           </dt>
           <dd>{orderEntity.discount}</dd>
           <dt>
-            <span id="isPaid">
-              <Translate contentKey="ianthaApp.order.isPaid">Is Paid</Translate>
+            <span id="paid">
+              <Translate contentKey="ianthaApp.order.paid">Paid</Translate>
             </span>
           </dt>
-          <dd>{orderEntity.isPaid ? 'true' : 'false'}</dd>
+          <dd>{orderEntity.paid ? 'true' : 'false'}</dd>
           <dt>
-            <span id="isCompleted">
-              <Translate contentKey="ianthaApp.order.isCompleted">Is Completed</Translate>
+            <span id="completed">
+              <Translate contentKey="ianthaApp.order.completed">Completed</Translate>
             </span>
           </dt>
-          <dd>{orderEntity.isCompleted ? 'true' : 'false'}</dd>
+          <dd>{orderEntity.completed ? 'true' : 'false'}</dd>
           <dt>
             <span id="createdAt">
               <Translate contentKey="ianthaApp.order.createdAt">Created At</Translate>
@@ -98,10 +98,6 @@ export const OrderDetail = () => {
             </span>
           </dt>
           <dd>{orderEntity.updatedAt ? <TextFormat value={orderEntity.updatedAt} type="date" format={APP_DATE_FORMAT} /> : null}</dd>
-          <dt>
-            <Translate contentKey="ianthaApp.order.refund">Refund</Translate>
-          </dt>
-          <dd>{orderEntity.refund ? orderEntity.refund.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/order" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

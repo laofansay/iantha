@@ -1,8 +1,9 @@
 {
   "annotations": {
-    "changelogDate": "20240819005917"
+    "changelogDate": "20240821093027"
   },
   "applications": ["iantha"],
+  "dto": "mapstruct",
   "fields": [
     {
       "documentation": "商品名称",
@@ -49,5 +50,6 @@
       "relationshipType": "one-to-many"
     }
   ],
-  "searchEngine": "no"
+  "searchEngine": "no",
+  "service": "serviceClass"
 }

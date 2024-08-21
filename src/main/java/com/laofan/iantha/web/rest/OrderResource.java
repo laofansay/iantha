@@ -1,7 +1,8 @@
 package com.laofan.iantha.web.rest;
 
-import com.laofan.iantha.domain.Order;
 import com.laofan.iantha.repository.OrderRepository;
+import com.laofan.iantha.service.OrderService;
+import com.laofan.iantha.service.dto.OrderDTO;
 import com.laofan.iantha.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -14,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -24,7 +24,6 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api/orders")
-@Transactional
 public class OrderResource {
 
     private static final Logger log = LoggerFactory.getLogger(OrderResource.class);
@@ -34,49 +33,54 @@ public class OrderResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+    private final OrderService orderService;
+
     private final OrderRepository orderRepository;
 
-    public OrderResource(OrderRepository orderRepository) {
+    public OrderResource(OrderService orderService, OrderRepository orderRepository) {
+        this.orderService = orderService;
         this.orderRepository = orderRepository;
     }
 
     /**
      * {@code POST  /orders} : Create a new order.
      *
-     * @param order the order to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new order, or with status {@code 400 (Bad Request)} if the order has already an ID.
+     * @param orderDTO the orderDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new orderDTO, or with status {@code 400 (Bad Request)} if the order has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<Order> createOrder(@Valid @RequestBody Order order) throws URISyntaxException {
-        log.debug("REST request to save Order : {}", order);
-        if (order.getId() != null) {
+    public ResponseEntity<OrderDTO> createOrder(@Valid @RequestBody OrderDTO orderDTO) throws URISyntaxException {
+        log.debug("REST request to save Order : {}", orderDTO);
+        if (orderDTO.getId() != null) {
             throw new BadRequestAlertException("A new order cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        order = orderRepository.save(order);
-        return ResponseEntity.created(new URI("/api/orders/" + order.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, order.getId().toString()))
-            .body(order);
+        orderDTO = orderService.save(orderDTO);
+        return ResponseEntity.created(new URI("/api/orders/" + orderDTO.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, orderDTO.getId().toString()))
+            .body(orderDTO);
     }
 
     /**
      * {@code PUT  /orders/:id} : Updates an existing order.
      *
-     * @param id the id of the order to save.
-     * @param order the order to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated order,
-     * or with status {@code 400 (Bad Request)} if the order is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the order couldn't be updated.
+     * @param id the id of the orderDTO to save.
+     * @param orderDTO the orderDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated orderDTO,
+     * or with status {@code 400 (Bad Request)} if the orderDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the orderDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<Order> updateOrder(@PathVariable(value = "id", required = false) final Long id, @Valid @RequestBody Order order)
-        throws URISyntaxException {
-        log.debug("REST request to update Order : {}, {}", id, order);
-        if (order.getId() == null) {
+    public ResponseEntity<OrderDTO> updateOrder(
+        @PathVariable(value = "id", required = false) final Long id,
+        @Valid @RequestBody OrderDTO orderDTO
+    ) throws URISyntaxException {
+        log.debug("REST request to update Order : {}, {}", id, orderDTO);
+        if (orderDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, order.getId())) {
+        if (!Objects.equals(id, orderDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -84,33 +88,33 @@ public class OrderResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        order = orderRepository.save(order);
+        orderDTO = orderService.update(orderDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, order.getId().toString()))
-            .body(order);
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, orderDTO.getId().toString()))
+            .body(orderDTO);
     }
 
     /**
      * {@code PATCH  /orders/:id} : Partial updates given fields of an existing order, field will ignore if it is null
      *
-     * @param id the id of the order to save.
-     * @param order the order to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated order,
-     * or with status {@code 400 (Bad Request)} if the order is not valid,
-     * or with status {@code 404 (Not Found)} if the order is not found,
-     * or with status {@code 500 (Internal Server Error)} if the order couldn't be updated.
+     * @param id the id of the orderDTO to save.
+     * @param orderDTO the orderDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated orderDTO,
+     * or with status {@code 400 (Bad Request)} if the orderDTO is not valid,
+     * or with status {@code 404 (Not Found)} if the orderDTO is not found,
+     * or with status {@code 500 (Internal Server Error)} if the orderDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<Order> partialUpdateOrder(
+    public ResponseEntity<OrderDTO> partialUpdateOrder(
         @PathVariable(value = "id", required = false) final Long id,
-        @NotNull @RequestBody Order order
+        @NotNull @RequestBody OrderDTO orderDTO
     ) throws URISyntaxException {
-        log.debug("REST request to partial update Order partially : {}, {}", id, order);
-        if (order.getId() == null) {
+        log.debug("REST request to partial update Order partially : {}, {}", id, orderDTO);
+        if (orderDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, order.getId())) {
+        if (!Objects.equals(id, orderDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -118,50 +122,11 @@ public class OrderResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Order> result = orderRepository
-            .findById(order.getId())
-            .map(existingOrder -> {
-                if (order.getNumber() != null) {
-                    existingOrder.setNumber(order.getNumber());
-                }
-                if (order.getStatus() != null) {
-                    existingOrder.setStatus(order.getStatus());
-                }
-                if (order.getTotal() != null) {
-                    existingOrder.setTotal(order.getTotal());
-                }
-                if (order.getShipping() != null) {
-                    existingOrder.setShipping(order.getShipping());
-                }
-                if (order.getPayable() != null) {
-                    existingOrder.setPayable(order.getPayable());
-                }
-                if (order.getTax() != null) {
-                    existingOrder.setTax(order.getTax());
-                }
-                if (order.getDiscount() != null) {
-                    existingOrder.setDiscount(order.getDiscount());
-                }
-                if (order.getIsPaid() != null) {
-                    existingOrder.setIsPaid(order.getIsPaid());
-                }
-                if (order.getIsCompleted() != null) {
-                    existingOrder.setIsCompleted(order.getIsCompleted());
-                }
-                if (order.getCreatedAt() != null) {
-                    existingOrder.setCreatedAt(order.getCreatedAt());
-                }
-                if (order.getUpdatedAt() != null) {
-                    existingOrder.setUpdatedAt(order.getUpdatedAt());
-                }
-
-                return existingOrder;
-            })
-            .map(orderRepository::save);
+        Optional<OrderDTO> result = orderService.partialUpdate(orderDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, order.getId().toString())
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, orderDTO.getId().toString())
         );
     }
 
@@ -171,34 +136,34 @@ public class OrderResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of orders in body.
      */
     @GetMapping("")
-    public List<Order> getAllOrders() {
+    public List<OrderDTO> getAllOrders() {
         log.debug("REST request to get all Orders");
-        return orderRepository.findAll();
+        return orderService.findAll();
     }
 
     /**
      * {@code GET  /orders/:id} : get the "id" order.
      *
-     * @param id the id of the order to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the order, or with status {@code 404 (Not Found)}.
+     * @param id the id of the orderDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the orderDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrder(@PathVariable("id") Long id) {
+    public ResponseEntity<OrderDTO> getOrder(@PathVariable("id") Long id) {
         log.debug("REST request to get Order : {}", id);
-        Optional<Order> order = orderRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(order);
+        Optional<OrderDTO> orderDTO = orderService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(orderDTO);
     }
 
     /**
      * {@code DELETE  /orders/:id} : delete the "id" order.
      *
-     * @param id the id of the order to delete.
+     * @param id the id of the orderDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrder(@PathVariable("id") Long id) {
         log.debug("REST request to delete Order : {}", id);
-        orderRepository.deleteById(id);
+        orderService.delete(id);
         return ResponseEntity.noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();

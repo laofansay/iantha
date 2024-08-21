@@ -1,0 +1,40 @@
+{
+  "ianthaApp": {
+    "wishlist": {
+      "home": {
+        "title": "Wishlists",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Wishlist",
+        "createOrEditLabel": "Create or edit a Wishlist",
+        "notFound": "No Wishlists found"
+      },
+      "created": "A new Wishlist is created with identifier {{ param }}",
+      "updated": "A Wishlist is updated with identifier {{ param }}",
+      "deleted": "A Wishlist is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Wishlist {{ id }}?"
+      },
+      "detail": {
+        "title": "Wishlist"
+      },
+      "id": "ID",
+      "identify": "Identify",
+      "bizCode": "Biz Code",
+      "bizDesc": "Biz Desc",
+      "bizIcon": "Biz Icon",
+      "bizTitle": "Biz Title",
+      "link": "Link",
+      "favCate": "Fav Cate",
+      "createdDate": "Created Date",
+      "help": {
+        "identify": "标识码",
+        "bizCode": "标识码",
+        "bizDesc": "收藏内容的描述信息",
+        "bizIcon": "icon",
+        "bizTitle": "收藏标题",
+        "link": "链接",
+        "favCate": "收藏类型"
+      }
+    }
+  }
+}

@@ -97,6 +97,24 @@ export const AddressUpdate = () => {
                 />
               ) : null}
               <ValidatedField
+                label={translate('ianthaApp.address.tag')}
+                id="address-tag"
+                name="tag"
+                data-cy="tag"
+                type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                }}
+              />
+              <ValidatedField
+                label={translate('ianthaApp.address.master')}
+                id="address-master"
+                name="master"
+                data-cy="master"
+                check
+                type="checkbox"
+              />
+              <ValidatedField
                 label={translate('ianthaApp.address.country')}
                 id="address-country"
                 name="country"

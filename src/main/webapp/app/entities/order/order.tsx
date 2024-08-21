@@ -114,13 +114,12 @@ export const Order = () => {
                   <Translate contentKey="ianthaApp.order.discount">Discount</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('discount')} />
                 </th>
-                <th className="hand" onClick={sort('isPaid')}>
-                  <Translate contentKey="ianthaApp.order.isPaid">Is Paid</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('isPaid')} />
+                <th className="hand" onClick={sort('paid')}>
+                  <Translate contentKey="ianthaApp.order.paid">Paid</Translate> <FontAwesomeIcon icon={getSortIconByFieldName('paid')} />
                 </th>
-                <th className="hand" onClick={sort('isCompleted')}>
-                  <Translate contentKey="ianthaApp.order.isCompleted">Is Completed</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('isCompleted')} />
+                <th className="hand" onClick={sort('completed')}>
+                  <Translate contentKey="ianthaApp.order.completed">Completed</Translate>{' '}
+                  <FontAwesomeIcon icon={getSortIconByFieldName('completed')} />
                 </th>
                 <th className="hand" onClick={sort('createdAt')}>
                   <Translate contentKey="ianthaApp.order.createdAt">Created At</Translate>{' '}
@@ -129,9 +128,6 @@ export const Order = () => {
                 <th className="hand" onClick={sort('updatedAt')}>
                   <Translate contentKey="ianthaApp.order.updatedAt">Updated At</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('updatedAt')} />
-                </th>
-                <th>
-                  <Translate contentKey="ianthaApp.order.refund">Refund</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -151,11 +147,10 @@ export const Order = () => {
                   <td>{order.payable}</td>
                   <td>{order.tax}</td>
                   <td>{order.discount}</td>
-                  <td>{order.isPaid ? 'true' : 'false'}</td>
-                  <td>{order.isCompleted ? 'true' : 'false'}</td>
+                  <td>{order.paid ? 'true' : 'false'}</td>
+                  <td>{order.completed ? 'true' : 'false'}</td>
                   <td>{order.createdAt ? <TextFormat type="date" value={order.createdAt} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>{order.updatedAt ? <TextFormat type="date" value={order.updatedAt} format={APP_DATE_FORMAT} /> : null}</td>
-                  <td>{order.refund ? <Link to={`/refund/${order.refund.id}`}>{order.refund.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/order/${order.id}`} color="info" size="sm" data-cy="entityDetailsButton">

@@ -2,7 +2,6 @@ package com.laofan.iantha.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.laofan.iantha.domain.enumeration.ProdStatus;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
@@ -14,7 +13,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 /**
  * 商品规模
  */
-@Schema(description = "商品规模")
 @Entity
 @Table(name = "baby_spec")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -32,7 +30,6 @@ public class BabySpec implements Serializable {
     /**
      * 规格编码
      */
-    @Schema(description = "规格编码", required = true)
     @NotNull
     @Column(name = "spec_code", nullable = false)
     private String specCode;
@@ -40,7 +37,6 @@ public class BabySpec implements Serializable {
     /**
      * 规规格标题
      */
-    @Schema(description = "规规格标题", required = true)
     @NotNull
     @Column(name = "spec_title", nullable = false)
     private String specTitle;
@@ -48,7 +44,6 @@ public class BabySpec implements Serializable {
     /**
      * 规模规格描述
      */
-    @Schema(description = "规模规格描述", required = true)
     @NotNull
     @Column(name = "description", nullable = false)
     private String description;
@@ -56,7 +51,6 @@ public class BabySpec implements Serializable {
     /**
      * 规规格标题
      */
-    @Schema(description = "规规格标题", required = true)
     @NotNull
     @Column(name = "spec_quantity", nullable = false)
     private Integer specQuantity;
@@ -64,7 +58,6 @@ public class BabySpec implements Serializable {
     /**
      * 成本价
      */
-    @Schema(description = "成本价", required = true)
     @NotNull
     @DecimalMin(value = "0")
     @Column(name = "guide_price", precision = 21, scale = 2, nullable = false)
@@ -73,7 +66,6 @@ public class BabySpec implements Serializable {
     /**
      * 单价
      */
-    @Schema(description = "单价", required = true)
     @NotNull
     @DecimalMin(value = "0")
     @Column(name = "spec_price", precision = 21, scale = 2, nullable = false)
@@ -82,7 +74,6 @@ public class BabySpec implements Serializable {
     /**
      * 画线价
      */
-    @Schema(description = "画线价", required = true)
     @NotNull
     @DecimalMin(value = "0")
     @Column(name = "show_price", precision = 21, scale = 2, nullable = false)
@@ -91,7 +82,6 @@ public class BabySpec implements Serializable {
     /**
      * 规格状态
      */
-    @Schema(description = "规格状态", required = true)
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "spec_status", nullable = false)
@@ -100,7 +90,6 @@ public class BabySpec implements Serializable {
     /**
      * 规格图片
      */
-    @Schema(description = "规格图片", required = true)
     @NotNull
     @Column(name = "images", nullable = false)
     private String images;
@@ -108,14 +97,12 @@ public class BabySpec implements Serializable {
     /**
      * 销量,此处简单维护,期望接入进入销存系统
      */
-    @Schema(description = "销量,此处简单维护,期望接入进入销存系统")
     @Column(name = "sell_count")
     private Integer sellCount;
 
     /**
      * 库存,此处简单维护,期望接入进入销存系统
      */
-    @Schema(description = "库存,此处简单维护,期望接入进入销存系统")
     @Column(name = "stock_count")
     private Integer stockCount;
 
@@ -128,7 +115,7 @@ public class BabySpec implements Serializable {
     private Instant updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "brand", "categories", "labels", "cartItems", "specs" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "brand", "categories", "orderItem", "labels", "cartItems", "specs" }, allowSetters = true)
     private Product products;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

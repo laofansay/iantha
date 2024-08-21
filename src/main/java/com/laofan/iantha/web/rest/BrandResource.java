@@ -1,7 +1,8 @@
 package com.laofan.iantha.web.rest;
 
-import com.laofan.iantha.domain.Brand;
 import com.laofan.iantha.repository.BrandRepository;
+import com.laofan.iantha.service.BrandService;
+import com.laofan.iantha.service.dto.BrandDTO;
 import com.laofan.iantha.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -14,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -24,7 +24,6 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api/brands")
-@Transactional
 public class BrandResource {
 
     private static final Logger log = LoggerFactory.getLogger(BrandResource.class);
@@ -34,49 +33,54 @@ public class BrandResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+    private final BrandService brandService;
+
     private final BrandRepository brandRepository;
 
-    public BrandResource(BrandRepository brandRepository) {
+    public BrandResource(BrandService brandService, BrandRepository brandRepository) {
+        this.brandService = brandService;
         this.brandRepository = brandRepository;
     }
 
     /**
      * {@code POST  /brands} : Create a new brand.
      *
-     * @param brand the brand to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new brand, or with status {@code 400 (Bad Request)} if the brand has already an ID.
+     * @param brandDTO the brandDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new brandDTO, or with status {@code 400 (Bad Request)} if the brand has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<Brand> createBrand(@Valid @RequestBody Brand brand) throws URISyntaxException {
-        log.debug("REST request to save Brand : {}", brand);
-        if (brand.getId() != null) {
+    public ResponseEntity<BrandDTO> createBrand(@Valid @RequestBody BrandDTO brandDTO) throws URISyntaxException {
+        log.debug("REST request to save Brand : {}", brandDTO);
+        if (brandDTO.getId() != null) {
             throw new BadRequestAlertException("A new brand cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        brand = brandRepository.save(brand);
-        return ResponseEntity.created(new URI("/api/brands/" + brand.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, brand.getId().toString()))
-            .body(brand);
+        brandDTO = brandService.save(brandDTO);
+        return ResponseEntity.created(new URI("/api/brands/" + brandDTO.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, brandDTO.getId().toString()))
+            .body(brandDTO);
     }
 
     /**
      * {@code PUT  /brands/:id} : Updates an existing brand.
      *
-     * @param id the id of the brand to save.
-     * @param brand the brand to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated brand,
-     * or with status {@code 400 (Bad Request)} if the brand is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the brand couldn't be updated.
+     * @param id the id of the brandDTO to save.
+     * @param brandDTO the brandDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated brandDTO,
+     * or with status {@code 400 (Bad Request)} if the brandDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the brandDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/{id}")
-    public ResponseEntity<Brand> updateBrand(@PathVariable(value = "id", required = false) final Long id, @Valid @RequestBody Brand brand)
-        throws URISyntaxException {
-        log.debug("REST request to update Brand : {}, {}", id, brand);
-        if (brand.getId() == null) {
+    public ResponseEntity<BrandDTO> updateBrand(
+        @PathVariable(value = "id", required = false) final Long id,
+        @Valid @RequestBody BrandDTO brandDTO
+    ) throws URISyntaxException {
+        log.debug("REST request to update Brand : {}, {}", id, brandDTO);
+        if (brandDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, brand.getId())) {
+        if (!Objects.equals(id, brandDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -84,33 +88,33 @@ public class BrandResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        brand = brandRepository.save(brand);
+        brandDTO = brandService.update(brandDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, brand.getId().toString()))
-            .body(brand);
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, brandDTO.getId().toString()))
+            .body(brandDTO);
     }
 
     /**
      * {@code PATCH  /brands/:id} : Partial updates given fields of an existing brand, field will ignore if it is null
      *
-     * @param id the id of the brand to save.
-     * @param brand the brand to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated brand,
-     * or with status {@code 400 (Bad Request)} if the brand is not valid,
-     * or with status {@code 404 (Not Found)} if the brand is not found,
-     * or with status {@code 500 (Internal Server Error)} if the brand couldn't be updated.
+     * @param id the id of the brandDTO to save.
+     * @param brandDTO the brandDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated brandDTO,
+     * or with status {@code 400 (Bad Request)} if the brandDTO is not valid,
+     * or with status {@code 404 (Not Found)} if the brandDTO is not found,
+     * or with status {@code 500 (Internal Server Error)} if the brandDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<Brand> partialUpdateBrand(
+    public ResponseEntity<BrandDTO> partialUpdateBrand(
         @PathVariable(value = "id", required = false) final Long id,
-        @NotNull @RequestBody Brand brand
+        @NotNull @RequestBody BrandDTO brandDTO
     ) throws URISyntaxException {
-        log.debug("REST request to partial update Brand partially : {}, {}", id, brand);
-        if (brand.getId() == null) {
+        log.debug("REST request to partial update Brand partially : {}, {}", id, brandDTO);
+        if (brandDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, brand.getId())) {
+        if (!Objects.equals(id, brandDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -118,26 +122,11 @@ public class BrandResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Brand> result = brandRepository
-            .findById(brand.getId())
-            .map(existingBrand -> {
-                if (brand.getTitle() != null) {
-                    existingBrand.setTitle(brand.getTitle());
-                }
-                if (brand.getDescription() != null) {
-                    existingBrand.setDescription(brand.getDescription());
-                }
-                if (brand.getLogo() != null) {
-                    existingBrand.setLogo(brand.getLogo());
-                }
-
-                return existingBrand;
-            })
-            .map(brandRepository::save);
+        Optional<BrandDTO> result = brandService.partialUpdate(brandDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, brand.getId().toString())
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, brandDTO.getId().toString())
         );
     }
 
@@ -147,34 +136,34 @@ public class BrandResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of brands in body.
      */
     @GetMapping("")
-    public List<Brand> getAllBrands() {
+    public List<BrandDTO> getAllBrands() {
         log.debug("REST request to get all Brands");
-        return brandRepository.findAll();
+        return brandService.findAll();
     }
 
     /**
      * {@code GET  /brands/:id} : get the "id" brand.
      *
-     * @param id the id of the brand to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the brand, or with status {@code 404 (Not Found)}.
+     * @param id the id of the brandDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the brandDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Brand> getBrand(@PathVariable("id") Long id) {
+    public ResponseEntity<BrandDTO> getBrand(@PathVariable("id") Long id) {
         log.debug("REST request to get Brand : {}", id);
-        Optional<Brand> brand = brandRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(brand);
+        Optional<BrandDTO> brandDTO = brandService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(brandDTO);
     }
 
     /**
      * {@code DELETE  /brands/:id} : delete the "id" brand.
      *
-     * @param id the id of the brand to delete.
+     * @param id the id of the brandDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBrand(@PathVariable("id") Long id) {
         log.debug("REST request to delete Brand : {}", id);
-        brandRepository.deleteById(id);
+        brandService.delete(id);
         return ResponseEntity.noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();

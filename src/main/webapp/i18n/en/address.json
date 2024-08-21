@@ -18,6 +18,8 @@
         "title": "Address"
       },
       "id": "ID",
+      "tag": "Tag",
+      "master": "Master",
       "country": "Country",
       "address": "Address",
       "city": "City",

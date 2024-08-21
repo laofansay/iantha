@@ -14,6 +14,12 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="tag" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="master" type="boolean">
+                <constraints nullable="true" />
+            </column>
             <column name="country" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
@@ -54,6 +60,8 @@
                   tableName="address"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
+            <column name="tag" type="string"/>
+            <column name="master" type="boolean"/>
             <column name="country" type="string"/>
             <column name="address" type="string"/>
             <column name="city" type="string"/>

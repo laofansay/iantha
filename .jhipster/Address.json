@@ -1,9 +1,18 @@
 {
   "annotations": {
-    "changelogDate": "20240819010417"
+    "changelogDate": "20240821093527"
   },
   "applications": ["iantha"],
   "fields": [
+    {
+      "fieldName": "tag",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "master",
+      "fieldType": "Boolean"
+    },
     {
       "fieldName": "country",
       "fieldType": "String",

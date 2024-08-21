@@ -1,9 +1,10 @@
 {
   "annotations": {
-    "changelogDate": "20240819010117"
+    "changelogDate": "20240821093227"
   },
   "applications": ["iantha"],
   "documentation": "商品标签",
+  "dto": "mapstruct",
   "fields": [
     {
       "documentation": "标签名称",
@@ -60,5 +61,6 @@
       "relationshipType": "many-to-one"
     }
   ],
-  "searchEngine": "no"
+  "searchEngine": "no",
+  "service": "serviceClass"
 }

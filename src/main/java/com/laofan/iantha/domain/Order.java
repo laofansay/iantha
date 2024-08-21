@@ -56,12 +56,12 @@ public class Order implements Serializable {
     private Float discount;
 
     @NotNull
-    @Column(name = "is_paid", nullable = false)
-    private Boolean isPaid;
+    @Column(name = "paid", nullable = false)
+    private Boolean paid;
 
     @NotNull
-    @Column(name = "is_completed", nullable = false)
-    private Boolean isCompleted;
+    @Column(name = "completed", nullable = false)
+    private Boolean completed;
 
     @NotNull
     @Column(name = "created_at", nullable = false)
@@ -70,10 +70,6 @@ public class Order implements Serializable {
     @NotNull
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "orders" }, allowSetters = true)
-    private Refund refund;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -84,6 +80,11 @@ public class Order implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "order" }, allowSetters = true)
     private Set<DiscountCode> discountCodes = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderItem")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "product", "orderItem" }, allowSetters = true)
+    private Set<OrderItem> orderItems = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -191,30 +192,30 @@ public class Order implements Serializable {
         this.discount = discount;
     }
 
-    public Boolean getIsPaid() {
-        return this.isPaid;
+    public Boolean getPaid() {
+        return this.paid;
     }
 
-    public Order isPaid(Boolean isPaid) {
-        this.setIsPaid(isPaid);
+    public Order paid(Boolean paid) {
+        this.setPaid(paid);
         return this;
     }
 
-    public void setIsPaid(Boolean isPaid) {
-        this.isPaid = isPaid;
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
     }
 
-    public Boolean getIsCompleted() {
-        return this.isCompleted;
+    public Boolean getCompleted() {
+        return this.completed;
     }
 
-    public Order isCompleted(Boolean isCompleted) {
-        this.setIsCompleted(isCompleted);
+    public Order completed(Boolean completed) {
+        this.setCompleted(completed);
         return this;
     }
 
-    public void setIsCompleted(Boolean isCompleted) {
-        this.isCompleted = isCompleted;
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
     }
 
     public Instant getCreatedAt() {
@@ -241,19 +242,6 @@ public class Order implements Serializable {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public Refund getRefund() {
-        return this.refund;
-    }
-
-    public void setRefund(Refund refund) {
-        this.refund = refund;
-    }
-
-    public Order refund(Refund refund) {
-        this.setRefund(refund);
-        return this;
     }
 
     public Set<Payment> getPayments() {
@@ -318,6 +306,37 @@ public class Order implements Serializable {
         return this;
     }
 
+    public Set<OrderItem> getOrderItems() {
+        return this.orderItems;
+    }
+
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        if (this.orderItems != null) {
+            this.orderItems.forEach(i -> i.setOrderItem(null));
+        }
+        if (orderItems != null) {
+            orderItems.forEach(i -> i.setOrderItem(this));
+        }
+        this.orderItems = orderItems;
+    }
+
+    public Order orderItems(Set<OrderItem> orderItems) {
+        this.setOrderItems(orderItems);
+        return this;
+    }
+
+    public Order addOrderItem(OrderItem orderItem) {
+        this.orderItems.add(orderItem);
+        orderItem.setOrderItem(this);
+        return this;
+    }
+
+    public Order removeOrderItem(OrderItem orderItem) {
+        this.orderItems.remove(orderItem);
+        orderItem.setOrderItem(null);
+        return this;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -349,8 +368,8 @@ public class Order implements Serializable {
             ", payable=" + getPayable() +
             ", tax=" + getTax() +
             ", discount=" + getDiscount() +
-            ", isPaid='" + getIsPaid() + "'" +
-            ", isCompleted='" + getIsCompleted() + "'" +
+            ", paid='" + getPaid() + "'" +
+            ", completed='" + getCompleted() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +
             "}";

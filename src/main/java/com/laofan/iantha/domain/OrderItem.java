@@ -1,5 +1,6 @@
 package com.laofan.iantha.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
@@ -24,14 +25,6 @@ public class OrderItem implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "order_id", nullable = false)
-    private String orderId;
-
-    @NotNull
-    @Column(name = "product_id", nullable = false)
-    private String productId;
-
-    @NotNull
     @Column(name = "count", nullable = false)
     private Integer count;
 
@@ -42,6 +35,15 @@ public class OrderItem implements Serializable {
     @NotNull
     @Column(name = "discount", nullable = false)
     private Float discount;
+
+    @JsonIgnoreProperties(value = { "brand", "categories", "orderItem", "labels", "cartItems", "specs" }, allowSetters = true)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(unique = true)
+    private Product product;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = { "payments", "discountCodes", "orderItems" }, allowSetters = true)
+    private Order orderItem;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -56,32 +58,6 @@ public class OrderItem implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getOrderId() {
-        return this.orderId;
-    }
-
-    public OrderItem orderId(String orderId) {
-        this.setOrderId(orderId);
-        return this;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
-    public String getProductId() {
-        return this.productId;
-    }
-
-    public OrderItem productId(String productId) {
-        this.setProductId(productId);
-        return this;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
     }
 
     public Integer getCount() {
@@ -123,6 +99,32 @@ public class OrderItem implements Serializable {
         this.discount = discount;
     }
 
+    public Product getProduct() {
+        return this.product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public OrderItem product(Product product) {
+        this.setProduct(product);
+        return this;
+    }
+
+    public Order getOrderItem() {
+        return this.orderItem;
+    }
+
+    public void setOrderItem(Order order) {
+        this.orderItem = order;
+    }
+
+    public OrderItem orderItem(Order order) {
+        this.setOrderItem(order);
+        return this;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -147,8 +149,6 @@ public class OrderItem implements Serializable {
     public String toString() {
         return "OrderItem{" +
             "id=" + getId() +
-            ", orderId='" + getOrderId() + "'" +
-            ", productId='" + getProductId() + "'" +
             ", count=" + getCount() +
             ", price=" + getPrice() +
             ", discount=" + getDiscount() +

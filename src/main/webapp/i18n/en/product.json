@@ -41,6 +41,7 @@
       "updatedAt": "Updated At",
       "brand": "Brand",
       "categories": "Categories",
+      "orderItem": "Order Item",
       "label": "Label",
       "cartItems": "Cart Items",
       "spec": "Spec",

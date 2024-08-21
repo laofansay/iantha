@@ -1,19 +1,15 @@
 package com.laofan.iantha.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * 购物项目
+ * 购物车
  */
-@Schema(description = "购物项目")
 @Entity
 @Table(name = "cart_item")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -41,13 +37,8 @@ public class CartItem implements Serializable {
     private Integer count;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "brand", "categories", "labels", "cartItems", "specs" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "brand", "categories", "orderItem", "labels", "cartItems", "specs" }, allowSetters = true)
     private Product product;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "items")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "items" }, allowSetters = true)
-    private Set<Cart> carts = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -113,37 +104,6 @@ public class CartItem implements Serializable {
 
     public CartItem product(Product product) {
         this.setProduct(product);
-        return this;
-    }
-
-    public Set<Cart> getCarts() {
-        return this.carts;
-    }
-
-    public void setCarts(Set<Cart> carts) {
-        if (this.carts != null) {
-            this.carts.forEach(i -> i.setItems(null));
-        }
-        if (carts != null) {
-            carts.forEach(i -> i.setItems(this));
-        }
-        this.carts = carts;
-    }
-
-    public CartItem carts(Set<Cart> carts) {
-        this.setCarts(carts);
-        return this;
-    }
-
-    public CartItem addCart(Cart cart) {
-        this.carts.add(cart);
-        cart.setItems(this);
-        return this;
-    }
-
-    public CartItem removeCart(Cart cart) {
-        this.carts.remove(cart);
-        cart.setItems(null);
         return this;
     }
 

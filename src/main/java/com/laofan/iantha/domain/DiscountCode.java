@@ -57,7 +57,7 @@ public class DiscountCode implements Serializable {
     private Instant createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "refund", "payments", "discountCodes" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "payments", "discountCodes", "orderItems" }, allowSetters = true)
     private Order order;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

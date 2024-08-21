@@ -8,8 +8,6 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IRefund } from 'app/shared/model/refund.model';
-import { getEntities as getRefunds } from 'app/entities/refund/refund.reducer';
 import { IOrder } from 'app/shared/model/order.model';
 import { getEntity, updateEntity, createEntity, reset } from './order.reducer';
 
@@ -21,7 +19,6 @@ export const OrderUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const refunds = useAppSelector(state => state.refund.entities);
   const orderEntity = useAppSelector(state => state.order.entity);
   const loading = useAppSelector(state => state.order.loading);
   const updating = useAppSelector(state => state.order.updating);
@@ -37,8 +34,6 @@ export const OrderUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
-
-    dispatch(getRefunds({}));
   }, []);
 
   useEffect(() => {
@@ -76,7 +71,6 @@ export const OrderUpdate = () => {
     const entity = {
       ...orderEntity,
       ...values,
-      refund: refunds.find(it => it.id.toString() === values.refund?.toString()),
     };
 
     if (isNew) {
@@ -96,7 +90,6 @@ export const OrderUpdate = () => {
           ...orderEntity,
           createdAt: convertDateTimeFromServer(orderEntity.createdAt),
           updatedAt: convertDateTimeFromServer(orderEntity.updatedAt),
-          refund: orderEntity?.refund?.id,
         };
 
   return (
@@ -200,19 +193,12 @@ export const OrderUpdate = () => {
                   validate: v => isNumber(v) || translate('entity.validation.number'),
                 }}
               />
+              <ValidatedField label={translate('ianthaApp.order.paid')} id="order-paid" name="paid" data-cy="paid" check type="checkbox" />
               <ValidatedField
-                label={translate('ianthaApp.order.isPaid')}
-                id="order-isPaid"
-                name="isPaid"
-                data-cy="isPaid"
-                check
-                type="checkbox"
-              />
-              <ValidatedField
-                label={translate('ianthaApp.order.isCompleted')}
-                id="order-isCompleted"
-                name="isCompleted"
-                data-cy="isCompleted"
+                label={translate('ianthaApp.order.completed')}
+                id="order-completed"
+                name="completed"
+                data-cy="completed"
                 check
                 type="checkbox"
               />
@@ -238,16 +224,6 @@ export const OrderUpdate = () => {
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
               />
-              <ValidatedField id="order-refund" name="refund" data-cy="refund" label={translate('ianthaApp.order.refund')} type="select">
-                <option value="" key="0" />
-                {refunds
-                  ? refunds.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/order" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

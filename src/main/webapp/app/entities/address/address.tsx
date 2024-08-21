@@ -88,6 +88,13 @@ export const Address = () => {
                 <th className="hand" onClick={sort('id')}>
                   <Translate contentKey="ianthaApp.address.id">ID</Translate> <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
+                <th className="hand" onClick={sort('tag')}>
+                  <Translate contentKey="ianthaApp.address.tag">Tag</Translate> <FontAwesomeIcon icon={getSortIconByFieldName('tag')} />
+                </th>
+                <th className="hand" onClick={sort('master')}>
+                  <Translate contentKey="ianthaApp.address.master">Master</Translate>{' '}
+                  <FontAwesomeIcon icon={getSortIconByFieldName('master')} />
+                </th>
                 <th className="hand" onClick={sort('country')}>
                   <Translate contentKey="ianthaApp.address.country">Country</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('country')} />
@@ -122,6 +129,8 @@ export const Address = () => {
                       {address.id}
                     </Button>
                   </td>
+                  <td>{address.tag}</td>
+                  <td>{address.master ? 'true' : 'false'}</td>
                   <td>{address.country}</td>
                   <td>{address.address}</td>
                   <td>{address.city}</td>

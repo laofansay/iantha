@@ -1,19 +1,10 @@
 {
   "annotations": {
-    "changelogDate": "20240819010317"
+    "changelogDate": "20240821093427"
   },
   "applications": ["iantha"],
+  "dto": "mapstruct",
   "fields": [
-    {
-      "fieldName": "orderId",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "productId",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
-    },
     {
       "fieldName": "count",
       "fieldType": "Integer",
@@ -31,6 +22,22 @@
     }
   ],
   "name": "OrderItem",
-  "relationships": [],
-  "searchEngine": "no"
+  "relationships": [
+    {
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "orderItem",
+      "relationshipName": "product",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "order",
+      "otherEntityRelationshipName": "orderItem",
+      "relationshipName": "orderItem",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
 }
