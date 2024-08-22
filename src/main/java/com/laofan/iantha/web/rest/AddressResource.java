@@ -2,11 +2,13 @@ package com.laofan.iantha.web.rest;
 
 import com.laofan.iantha.domain.Address;
 import com.laofan.iantha.repository.AddressRepository;
+import com.laofan.iantha.security.SecurityUtils;
 import com.laofan.iantha.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -53,7 +55,11 @@ public class AddressResource {
         if (address.getId() != null) {
             throw new BadRequestAlertException("A new address cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        address.setCreatedAt(Instant.now());
         address = addressRepository.save(address);
+        if (address.getMaster() != null) {
+            addressRepository.updateUnMasterWithOther(address.getId(), "1");
+        }
         return ResponseEntity.created(new URI("/api/addresses/" + address.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, address.getId().toString()))
             .body(address);
@@ -87,6 +93,9 @@ public class AddressResource {
         }
 
         address = addressRepository.save(address);
+        if (address.getMaster() != null) {
+            addressRepository.updateUnMasterWithOther(address.getId(), "1");
+        }
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, address.getId().toString()))
             .body(address);
@@ -123,11 +132,17 @@ public class AddressResource {
         Optional<Address> result = addressRepository
             .findById(address.getId())
             .map(existingAddress -> {
+                if (address.getMaster() != null) {
+                    existingAddress.setMaster(address.getMaster());
+                }
                 if (address.getCountry() != null) {
                     existingAddress.setCountry(address.getCountry());
                 }
                 if (address.getAddress() != null) {
                     existingAddress.setAddress(address.getAddress());
+                }
+                if (address.getTag() != null) {
+                    existingAddress.setTag(address.getTag());
                 }
                 if (address.getCity() != null) {
                     existingAddress.setCity(address.getCity());
@@ -141,11 +156,13 @@ public class AddressResource {
                 if (address.getCreatedAt() != null) {
                     existingAddress.setCreatedAt(address.getCreatedAt());
                 }
-
                 return existingAddress;
             })
             .map(addressRepository::save);
 
+        if (address.getMaster() != null) {
+            addressRepository.updateUnMasterWithOther(id, "1");
+        }
         return ResponseUtil.wrapOrNotFound(
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, address.getId().toString())

@@ -31,7 +31,7 @@ public class Address implements Serializable {
     @Column(name = "master")
     private Boolean master;
 
-    @NotNull
+    //@NotNull
     @Column(name = "country", nullable = false)
     private String country;
 
@@ -51,7 +51,7 @@ public class Address implements Serializable {
     @Column(name = "postal_code", nullable = false)
     private String postalCode;
 
-    @NotNull
+    //@NotNull
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
