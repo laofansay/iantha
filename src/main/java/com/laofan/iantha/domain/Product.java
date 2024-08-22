@@ -58,8 +58,7 @@ public class Product implements Serializable {
     @Type(StringArrayType.class)
     private String[] keywords;
 
-    @Lob
-    @Column(name = "metadata")
+    @Column(name = "metadata",columnDefinition = "text[]")
     private String metadata;
 
     /**

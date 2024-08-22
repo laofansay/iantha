@@ -17,5 +17,16 @@ public interface CartItemMapper extends EntityMapper<CartItemDTO, CartItem> {
     @Named("productId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "title", source = "title")
+    @Mapping(target = "transCode", source = "transCode")
+    @Mapping(target = "description", source = "description")
+    @Mapping(target = "images", source = "images")
+    @Mapping(target = "keywords", source = "keywords")
+    @Mapping(target = "metadata", source = "metadata")
+    @Mapping(target = "guidePrice", source = "guidePrice")
+    @Mapping(target = "price", source = "price")
+    @Mapping(target = "showPrice", source = "showPrice")
+    @Mapping(target = "discount", source = "discount")
+    @Mapping(target = "stock", source = "stock")
     ProductDTO toDtoProductId(Product product);
 }

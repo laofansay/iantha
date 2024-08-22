@@ -31,7 +31,6 @@ public class ProductDTO implements Serializable {
 
     private String[] keywords;
 
-    @Lob
     private String metadata;
 
     @NotNull

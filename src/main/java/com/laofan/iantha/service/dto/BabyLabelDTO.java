@@ -37,11 +37,9 @@ public class BabyLabelDTO implements Serializable {
     private String identify;
 
     @Schema(description = "规则说明富文本")
-    @Lob
     private String ruleReadme;
 
     @Schema(description = "规则说明富文本")
-    @Lob
     private String ruleExpression;
 
     private ProductDTO products;

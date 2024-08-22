@@ -64,15 +64,14 @@ public class BabyLabel implements Serializable {
     /**
      * 规则说明富文本
      */
-    @Lob
-    @Column(name = "rule_readme")
+
+    @Column(name = "rule_readme" , columnDefinition = "text[]")
     private String ruleReadme;
 
     /**
      * 规则说明富文本
      */
-    @Lob
-    @Column(name = "rule_expression")
+    @Column(name = "rule_expression", columnDefinition = "text[]")
     private String ruleExpression;
 
     @ManyToOne(fetch = FetchType.LAZY)
