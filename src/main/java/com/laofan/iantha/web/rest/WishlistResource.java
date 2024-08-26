@@ -56,6 +56,7 @@ public class WishlistResource {
         if (wishlist.getId() != null) {
             throw new BadRequestAlertException("A new wishlist cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        wishlist.setIdentify(FanSecurityUtils.getCurrentIdent());
         wishlist = wishlistRepository.save(wishlist);
         return ResponseEntity.created(new URI("/api/wishlists/" + wishlist.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, wishlist.getId().toString()))
@@ -89,6 +90,7 @@ public class WishlistResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
+        wishlist.setIdentify(FanSecurityUtils.getCurrentIdent());
         wishlist = wishlistRepository.save(wishlist);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, wishlist.getId().toString()))
@@ -122,7 +124,6 @@ public class WishlistResource {
         if (!wishlistRepository.existsById(id)) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
-
         Optional<Wishlist> result = wishlistRepository
             .findById(wishlist.getId())
             .map(existingWishlist -> {
@@ -169,7 +170,7 @@ public class WishlistResource {
     @GetMapping("")
     public List<Wishlist> getAllWishlists(Wishlist wishlist) {
         log.debug("REST request to get all Wishlists");
-
+        wishlist.setIdentify(FanSecurityUtils.getCurrentIdent());
         return wishlistRepository.findAll(Example.of(wishlist));
     }
 
