@@ -54,6 +54,9 @@ export const Wishlist = () => {
     sortEntities();
   };
 
+
+
+
   const getSortIconByFieldName = (fieldName: string) => {
     const sortFieldName = sortState.sort;
     const order = sortState.order;

@@ -47,7 +47,7 @@ public class DomainUserDetailsService implements UserDetailsService {
             .orElseThrow(() -> new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database"));
     }
 
-    private org.springframework.security.core.userdetails.User createSpringSecurityUser(String lowercaseLogin, User user) {
+    private FanUser createSpringSecurityUser(String lowercaseLogin, User user) {
         if (!user.isActivated()) {
             throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
         }
@@ -57,6 +57,7 @@ public class DomainUserDetailsService implements UserDetailsService {
             .map(Authority::getName)
             .map(SimpleGrantedAuthority::new)
             .toList();
-        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), grantedAuthorities);
+        //return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), grantedAuthorities);
+        return new FanUser(user.getLogin(),user.getPassword(),grantedAuthorities,user.getId());
     }
 }

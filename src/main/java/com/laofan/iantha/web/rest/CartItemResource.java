@@ -4,6 +4,7 @@ import com.laofan.iantha.domain.CartItem;
 import com.laofan.iantha.domain.Product;
 import com.laofan.iantha.repository.CartItemRepository;
 import com.laofan.iantha.repository.ProductRepository;
+import com.laofan.iantha.security.FanSecurityUtils;
 import com.laofan.iantha.security.SecurityUtils;
 import com.laofan.iantha.service.CartItemService;
 import com.laofan.iantha.service.dto.CartItemDTO;
@@ -67,7 +68,7 @@ public class CartItemResource {
     public ResponseEntity<CartItemDTO> createCartItem(@Valid @RequestBody CartItemDTO dto) throws URISyntaxException {
         log.debug("REST request to save CartItem : {}", dto);
 
-        dto.setCid(SecurityUtils.getCurrentUserLogin().get());
+        dto.setCid(FanSecurityUtils.getCurrentIdent());
 
         CartItem cartItem = new CartItem();
         cartItem.setProdId(dto.getProdId());
@@ -144,7 +145,7 @@ public class CartItemResource {
         log.debug("REST request to get CartItem : {}", id);
         CartItem cart=new CartItem();
         cart.setProdId(id+"");
-        cart.setCid(SecurityUtils.getCurrentUserLogin().get());
+        cart.setCid(FanSecurityUtils.getCurrentIdent());
         CartItem cartItem = cartItemRepository.findOne(Example.of(cart)).orElse(new CartItem().count(0));
 
         return ResponseEntity.ok(cartItem);

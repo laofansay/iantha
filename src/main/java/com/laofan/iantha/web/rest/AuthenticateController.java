@@ -4,6 +4,7 @@ import static com.laofan.iantha.security.SecurityUtils.AUTHORITIES_KEY;
 import static com.laofan.iantha.security.SecurityUtils.JWT_ALGORITHM;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.laofan.iantha.security.FanUser;
 import com.laofan.iantha.web.rest.vm.LoginVM;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -89,12 +90,14 @@ public class AuthenticateController {
             validity = now.plus(this.tokenValidityInSeconds, ChronoUnit.SECONDS);
         }
 
+        FanUser principal = (FanUser) authentication.getPrincipal();
         // @formatter:off
         JwtClaimsSet claims = JwtClaimsSet.builder()
             .issuedAt(now)
             .expiresAt(validity)
             .subject(authentication.getName())
             .claim(AUTHORITIES_KEY, authorities)
+            .claim("ident",principal.getIdent())
             .build();
 
         JwsHeader jwsHeader = JwsHeader.with(JWT_ALGORITHM).build();

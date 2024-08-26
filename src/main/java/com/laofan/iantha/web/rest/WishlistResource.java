@@ -2,6 +2,8 @@ package com.laofan.iantha.web.rest;
 
 import com.laofan.iantha.domain.Wishlist;
 import com.laofan.iantha.repository.WishlistRepository;
+import com.laofan.iantha.security.FanSecurityUtils;
+import com.laofan.iantha.security.SecurityUtils;
 import com.laofan.iantha.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -13,6 +15,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Example;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -164,9 +167,10 @@ public class WishlistResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of wishlists in body.
      */
     @GetMapping("")
-    public List<Wishlist> getAllWishlists() {
+    public List<Wishlist> getAllWishlists(Wishlist wishlist) {
         log.debug("REST request to get all Wishlists");
-        return wishlistRepository.findAll();
+
+        return wishlistRepository.findAll(Example.of(wishlist));
     }
 
     /**
@@ -196,4 +200,5 @@ public class WishlistResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
 }
