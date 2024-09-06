@@ -30,7 +30,6 @@ public class Wishlist implements Serializable {
      * 标识码
      */
     @Schema(description = "标识码", required = true)
-    @NotNull
     @Column(name = "identify", nullable = false)
     private String identify;
 

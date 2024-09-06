@@ -9,9 +9,12 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import org.antlr.v4.runtime.IntStream;
+import org.apache.commons.lang3.IntegerRange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -56,7 +59,9 @@ public class WishlistResource {
         if (wishlist.getId() != null) {
             throw new BadRequestAlertException("A new wishlist cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
         wishlist.setIdentify(FanSecurityUtils.getCurrentIdent());
+        wishlist.setCreatedDate(Instant.now());
         wishlist = wishlistRepository.save(wishlist);
         return ResponseEntity.created(new URI("/api/wishlists/" + wishlist.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, wishlist.getId().toString()))
@@ -201,5 +206,4 @@ public class WishlistResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
-
 }
