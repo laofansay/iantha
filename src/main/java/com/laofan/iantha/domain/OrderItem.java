@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -30,11 +31,11 @@ public class OrderItem implements Serializable {
 
     @NotNull
     @Column(name = "price", nullable = false)
-    private Float price;
+    private BigDecimal price;
 
     @NotNull
     @Column(name = "discount", nullable = false)
-    private Float discount;
+    private Integer discount;
 
     @JsonIgnoreProperties(value = { "brand", "categories", "orderItem", "labels", "cartItems", "specs" }, allowSetters = true)
     @OneToOne(fetch = FetchType.LAZY)
@@ -44,6 +45,26 @@ public class OrderItem implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = { "payments", "discountCodes", "orderItems" }, allowSetters = true)
     private Order orderItem;
+
+    private BigDecimal total;
+
+    private BigDecimal disTotal;
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public BigDecimal getDisTotal() {
+        return disTotal;
+    }
+
+    public void setDisTotal(BigDecimal disTotal) {
+        this.disTotal = disTotal;
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -73,29 +94,29 @@ public class OrderItem implements Serializable {
         this.count = count;
     }
 
-    public Float getPrice() {
+    public BigDecimal getPrice() {
         return this.price;
     }
 
-    public OrderItem price(Float price) {
+    public OrderItem price(BigDecimal price) {
         this.setPrice(price);
         return this;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public Float getDiscount() {
+    public Integer getDiscount() {
         return this.discount;
     }
 
-    public OrderItem discount(Float discount) {
+    public OrderItem discount(Integer discount) {
         this.setDiscount(discount);
         return this;
     }
 
-    public void setDiscount(Float discount) {
+    public void setDiscount(Integer discount) {
         this.discount = discount;
     }
 

@@ -45,6 +45,7 @@ public class CartItemResource {
     private final CartItemService cartItemService;
 
     private final CartItemRepository cartItemRepository;
+
     @Resource
     ProductRepository productRepository;
 
@@ -73,11 +74,11 @@ public class CartItemResource {
         CartItem cartItem = new CartItem();
         cartItem.setProdId(dto.getProdId());
         cartItem.setCid(dto.getCid());
-        if(dto.getId()!=null || cartItemRepository.count(Example.of(cartItem))>0){
-            cartItemRepository.updateCount(cartItem.getCid(), cartItem.getProdId(),dto.getCount());
-            cartItem= cartItemRepository.findOne(Example.of(cartItem)).get();
-        }else{
-            Product product = productRepository.findById(Long.parseLong(cartItem.getProdId())).get();
+        if (dto.getId() != null || cartItemRepository.count(Example.of(cartItem)) > 0) {
+            cartItemRepository.updateCount(cartItem.getCid(), cartItem.getProdId(), dto.getCount());
+            cartItem = cartItemRepository.findOne(Example.of(cartItem)).orElse(null);
+        } else {
+            Product product = productRepository.findById(Long.parseLong(cartItem.getProdId())).orElse(null);
             cartItem.setProduct(product);
             cartItem.setCount(dto.getCount());
             cartItem = cartItemRepository.save(cartItem);
@@ -121,8 +122,6 @@ public class CartItemResource {
             .body(cartItemDTO);
     }
 
-
-
     /**
      * {@code GET  /cart-items} : get all the cartItems.
      *
@@ -143,8 +142,8 @@ public class CartItemResource {
     @GetMapping("/{id}")
     public ResponseEntity<CartItem> getCartItem(@PathVariable("id") Long id) {
         log.debug("REST request to get CartItem : {}", id);
-        CartItem cart=new CartItem();
-        cart.setProdId(id+"");
+        CartItem cart = new CartItem();
+        cart.setProdId(id + "");
         cart.setCid(FanSecurityUtils.getCurrentIdent());
         CartItem cartItem = cartItemRepository.findOne(Example.of(cart)).orElse(new CartItem().count(0));
 

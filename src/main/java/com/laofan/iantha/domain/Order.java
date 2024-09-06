@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,7 +38,7 @@ public class Order implements Serializable {
 
     @NotNull
     @Column(name = "total", nullable = false)
-    private Float total;
+    private BigDecimal total;
 
     @NotNull
     @Column(name = "shipping", nullable = false)
@@ -45,7 +46,7 @@ public class Order implements Serializable {
 
     @NotNull
     @Column(name = "payable", nullable = false)
-    private Float payable;
+    private BigDecimal payable;
 
     @NotNull
     @Column(name = "tax", nullable = false)
@@ -53,7 +54,7 @@ public class Order implements Serializable {
 
     @NotNull
     @Column(name = "discount", nullable = false)
-    private Float discount;
+    private BigDecimal discount;
 
     @NotNull
     @Column(name = "paid", nullable = false)
@@ -127,16 +128,16 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public Float getTotal() {
+    public BigDecimal getTotal() {
         return this.total;
     }
 
-    public Order total(Float total) {
+    public Order total(BigDecimal total) {
         this.setTotal(total);
         return this;
     }
 
-    public void setTotal(Float total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 
@@ -153,16 +154,16 @@ public class Order implements Serializable {
         this.shipping = shipping;
     }
 
-    public Float getPayable() {
+    public BigDecimal getPayable() {
         return this.payable;
     }
 
-    public Order payable(Float payable) {
+    public Order payable(BigDecimal payable) {
         this.setPayable(payable);
         return this;
     }
 
-    public void setPayable(Float payable) {
+    public void setPayable(BigDecimal payable) {
         this.payable = payable;
     }
 
@@ -179,16 +180,16 @@ public class Order implements Serializable {
         this.tax = tax;
     }
 
-    public Float getDiscount() {
+    public BigDecimal getDiscount() {
         return this.discount;
     }
 
-    public Order discount(Float discount) {
+    public Order discount(BigDecimal discount) {
         this.setDiscount(discount);
         return this;
     }
 
-    public void setDiscount(Float discount) {
+    public void setDiscount(BigDecimal discount) {
         this.discount = discount;
     }
 

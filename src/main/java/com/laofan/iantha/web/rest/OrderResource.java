@@ -3,6 +3,7 @@ package com.laofan.iantha.web.rest;
 import com.laofan.iantha.repository.OrderRepository;
 import com.laofan.iantha.service.OrderService;
 import com.laofan.iantha.service.dto.OrderDTO;
+import com.laofan.iantha.service.vo.CartItemVO;
 import com.laofan.iantha.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -45,17 +46,16 @@ public class OrderResource {
     /**
      * {@code POST  /orders} : Create a new order.
      *
-     * @param orderDTO the orderDTO to create.
+     * @param cartItemVO the orderDTO to create.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new orderDTO, or with status {@code 400 (Bad Request)} if the order has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<OrderDTO> createOrder(@Valid @RequestBody OrderDTO orderDTO) throws URISyntaxException {
-        log.debug("REST request to save Order : {}", orderDTO);
-        if (orderDTO.getId() != null) {
-            throw new BadRequestAlertException("A new order cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        orderDTO = orderService.save(orderDTO);
+    public ResponseEntity<OrderDTO> createOrder(@Valid @RequestBody CartItemVO cartItemVO) throws URISyntaxException {
+        log.debug("REST request to save Order : {}", cartItemVO);
+
+        OrderDTO orderDTO = orderService.createOrder(cartItemVO);
+
         return ResponseEntity.created(new URI("/api/orders/" + orderDTO.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, orderDTO.getId().toString()))
             .body(orderDTO);

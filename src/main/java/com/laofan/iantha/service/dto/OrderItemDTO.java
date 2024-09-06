@@ -2,6 +2,7 @@ package com.laofan.iantha.service.dto;
 
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -16,10 +17,10 @@ public class OrderItemDTO implements Serializable {
     private Integer count;
 
     @NotNull
-    private Float price;
+    private BigDecimal price;
 
     @NotNull
-    private Float discount;
+    private Integer discount;
 
     private ProductDTO product;
 
@@ -41,19 +42,19 @@ public class OrderItemDTO implements Serializable {
         this.count = count;
     }
 
-    public Float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public Float getDiscount() {
+    public Integer getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Float discount) {
+    public void setDiscount(Integer discount) {
         this.discount = discount;
     }
 

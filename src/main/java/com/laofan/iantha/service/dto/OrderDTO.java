@@ -1,7 +1,9 @@
 package com.laofan.iantha.service.dto;
 
+import com.laofan.iantha.domain.Order;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Objects;
 
@@ -20,19 +22,19 @@ public class OrderDTO implements Serializable {
     private String status;
 
     @NotNull
-    private Float total;
+    private BigDecimal total;
 
     @NotNull
     private Float shipping;
 
     @NotNull
-    private Float payable;
+    private BigDecimal payable;
 
     @NotNull
     private Float tax;
 
     @NotNull
-    private Float discount;
+    private BigDecimal discount;
 
     @NotNull
     private Boolean paid;
@@ -70,11 +72,11 @@ public class OrderDTO implements Serializable {
         this.status = status;
     }
 
-    public Float getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(Float total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 
@@ -86,11 +88,11 @@ public class OrderDTO implements Serializable {
         this.shipping = shipping;
     }
 
-    public Float getPayable() {
+    public BigDecimal getPayable() {
         return payable;
     }
 
-    public void setPayable(Float payable) {
+    public void setPayable(BigDecimal payable) {
         this.payable = payable;
     }
 
@@ -102,11 +104,11 @@ public class OrderDTO implements Serializable {
         this.tax = tax;
     }
 
-    public Float getDiscount() {
+    public BigDecimal getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Float discount) {
+    public void setDiscount(BigDecimal discount) {
         this.discount = discount;
     }
 

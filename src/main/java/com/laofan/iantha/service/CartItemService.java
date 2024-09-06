@@ -85,7 +85,12 @@ public class CartItemService {
     @Transactional(readOnly = true)
     public List<CartItemDTO> findAll() {
         log.debug("Request to get all CartItems");
-        return cartItemRepository.findAll().stream().map(cartItemMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+        LinkedList<CartItemDTO> collect = cartItemRepository
+            .findAll()
+            .stream()
+            .map(cartItemMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+        return collect;
     }
 
     /**
