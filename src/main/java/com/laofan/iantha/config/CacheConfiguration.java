@@ -1,6 +1,7 @@
 package com.laofan.iantha.config;
 
 import java.time.Duration;
+import javax.cache.Caching;
 import org.ehcache.config.builders.*;
 import org.ehcache.jsr107.Eh107Configuration;
 import org.hibernate.cache.jcache.ConfigSettings;

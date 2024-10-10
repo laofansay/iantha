@@ -103,17 +103,17 @@ public class AliPayNotifyController {
                 log.info("公用回传参数:{{}}", passBackParams);
 
                 // 组装发送消息参数
-                NotifyResult notify = NotifyResult.builder()
+                /* NotifyResult notify = NotifyResult.builder()
                     .orderId(outTradeNo)
                     .tradeNo(tradeNo)
                     .totalAmount(CONVERTER_REGISTRY.convert(BigDecimal.class, totalAmount))
                     .buyerLogonId(buyerLogonId)
                     .moduleName(passBackParams)
-                    .build();
+                    .build();*/
                 // 发送MQ消息
-                log.debug("发送rabbitmq信息：{}", notify);
+                //log.debug("发送rabbitmq信息：{}", notify);
                 // 发送MQ消息
-                rabbitSendService.sendMessage(RabbitMqConfig.TOPIC_EXCHANGE, RabbitMqConfig.ROUTING_KEY, notify);
+                //rabbitSendService.sendMessage(RabbitMqConfig.TOPIC_EXCHANGE, RabbitMqConfig.ROUTING_KEY, notify);
                 // 返回success 让支付宝官方不再发送回调请求
                 return "success";
             }

@@ -70,15 +70,15 @@ public class WechatPayNotifyController {
                 log.info("附加信息：{{}}", attach);
                 log.info("支付成功->执行操作");
                 // 组装发送消息参数
-                NotifyResult notify = NotifyResult.builder()
+                /*NotifyResult notify = NotifyResult.builder()
                     .orderId(orderSn)
                     .tradeNo(tradeNo)
                     .totalAmount(CONVERTER_REGISTRY.convert(BigDecimal.class, totalFee))
                     .buyerLogonId("0.0.0.0")
                     .moduleName(attach)
-                    .build();
+                    .build();*/
                 // 发送MQ消息
-                rabbitSendService.sendMessage(RabbitMqConfig.TOPIC_EXCHANGE, RabbitMqConfig.ROUTING_KEY, notify);
+                //rabbitSendService.sendMessage(RabbitMqConfig.TOPIC_EXCHANGE, RabbitMqConfig.ROUTING_KEY, notify);
                 //自己处理订单的业务逻辑，需要判断订单是否已经支付过，否则可能会重复调用
                 return WxPayNotifyResponse.success("服务器执行微信支付回调结果成功！");
             }
