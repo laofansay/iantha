@@ -1,10 +1,19 @@
 package com.laofan.iantha.web.rest;
 
+import com.laofan.iantha.domain.OrderItem;
 import com.laofan.iantha.domain.Payment;
 import com.laofan.iantha.repository.PaymentRepository;
+import com.laofan.iantha.stripe.CustomerUtil;
 import com.laofan.iantha.web.rest.errors.BadRequestAlertException;
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.Customer;
+import com.stripe.model.Product;
+import com.stripe.model.billingportal.Session;
+import com.stripe.param.checkout.SessionCreateParams;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -38,6 +47,48 @@ public class PaymentResource {
 
     public PaymentResource(PaymentRepository paymentRepository) {
         this.paymentRepository = paymentRepository;
+    }
+
+    String STRIPE_API_KEY = System.getenv().get("STRIPE_API_KEY");
+
+    @PostMapping("/checkout/hosted")
+    public String hostedCheckout(@RequestBody Payment requestDTO) throws StripeException {
+        Stripe.apiKey = STRIPE_API_KEY;
+        String clientBaseURL = System.getenv().get("CLIENT_BASE_URL");
+        // Start by finding an existing customer record from Stripe or creating a new one if needed
+        Customer customer = CustomerUtil.findOrCreateCustomer(
+            requestDTO.getOrder().getMember().getLogin(),
+            requestDTO.getOrder().getMember().getName()
+        );
+
+        // Next, create a checkout session by adding the details of the checkout
+        SessionCreateParams.Builder paramsBuilder = SessionCreateParams.builder()
+            .setMode(SessionCreateParams.Mode.PAYMENT)
+            .setCustomer(customer.getId())
+            .setSuccessUrl(clientBaseURL + "/success?session_id={CHECKOUT_SESSION_ID}")
+            .setCancelUrl(clientBaseURL + "/failure");
+
+        for (OrderItem item : requestDTO.getOrder().getOrderItems()) {
+            paramsBuilder.addLineItem(
+                SessionCreateParams.LineItem.builder()
+                    .setQuantity(1L)
+                    .setPriceData(
+                        SessionCreateParams.LineItem.PriceData.builder()
+                            .setProductData(
+                                SessionCreateParams.LineItem.PriceData.ProductData.builder()
+                                    .putMetadata("app_id", item.getId() + "")
+                                    .setName(item.getProduct().getTitle())
+                                    .build()
+                            )
+                            .setCurrency("$USD")
+                            .setUnitAmountDecimal(BigDecimal.valueOf(requestDTO.getOrder().getTotal()))
+                            .build()
+                    )
+                    .build()
+            );
+        }
+
+        return null;
     }
 
     /**

@@ -4,6 +4,7 @@ import com.laofan.iantha.domain.CartItem;
 import com.laofan.iantha.repository.CartItemRepository;
 import com.laofan.iantha.service.dto.CartItemDTO;
 import com.laofan.iantha.service.mapper.CartItemMapper;
+import jakarta.validation.constraints.NotNull;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +30,10 @@ public class CartItemService {
     public CartItemService(CartItemRepository cartItemRepository, CartItemMapper cartItemMapper) {
         this.cartItemRepository = cartItemRepository;
         this.cartItemMapper = cartItemMapper;
+    }
+
+    public void clean(@NotNull List<CartItem> carts) {
+        cartItemRepository.deleteAll(carts);
     }
 
     /**

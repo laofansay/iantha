@@ -1,6 +1,7 @@
 package com.laofan.iantha.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.laofan.iantha.domain.enumeration.PaymentStatusEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
@@ -31,7 +32,7 @@ public class Payment implements Serializable {
 
     @NotNull
     @Column(name = "status", nullable = false)
-    private String status;
+    private PaymentStatusEnum status;
 
     @NotNull
     @Column(name = "ref_id", nullable = false, unique = true)
@@ -98,16 +99,16 @@ public class Payment implements Serializable {
         this.number = number;
     }
 
-    public String getStatus() {
+    public PaymentStatusEnum getStatus() {
         return this.status;
     }
 
-    public Payment status(String status) {
+    public Payment status(PaymentStatusEnum status) {
         this.setStatus(status);
         return this;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(PaymentStatusEnum status) {
         this.status = status;
     }
 

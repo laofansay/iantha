@@ -2,8 +2,14 @@ package com.laofan.iantha.service;
 
 import com.laofan.iantha.domain.Order;
 import com.laofan.iantha.repository.OrderRepository;
+import com.laofan.iantha.security.SecurityUtils;
 import com.laofan.iantha.service.dto.OrderDTO;
+import com.laofan.iantha.service.dto.OrderFromDTO;
 import com.laofan.iantha.service.mapper.OrderMapper;
+import com.laofan.iantha.stripe.StrIpeApi;
+import com.stripe.exception.StripeException;
+import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +32,8 @@ public class OrderService {
 
     private final OrderMapper orderMapper;
 
+    private StrIpeApi stripeApi;
+
     public OrderService(OrderRepository orderRepository, OrderMapper orderMapper) {
         this.orderRepository = orderRepository;
         this.orderMapper = orderMapper;
@@ -37,11 +45,11 @@ public class OrderService {
      * @param orderDTO the entity to save.
      * @return the persisted entity.
      */
-    public OrderDTO save(OrderDTO orderDTO) {
+    public Order save(OrderDTO orderDTO) {
         log.debug("Request to save Order : {}", orderDTO);
         Order order = orderMapper.toEntity(orderDTO);
         order = orderRepository.save(order);
-        return orderMapper.toDto(order);
+        return order;
     }
 
     /**
@@ -108,5 +116,37 @@ public class OrderService {
     public void delete(Long id) {
         log.debug("Request to delete Order : {}", id);
         orderRepository.deleteById(id);
+    }
+
+    @Resource
+    CartItemService cartItemService;
+
+    /**
+     * 创建订单
+     * 接口幂等
+     * @param orderFromDTO
+     * @return
+     */
+    public OrderDTO createOrder(OrderFromDTO orderFromDTO) throws StripeException {
+        String email = SecurityUtils.getCurrentUserLogin().get();
+        String name = "";
+        String userId = "";
+
+        //1 验证表单
+
+        // 1 填充 orderFromDTO
+        // 2 创建订单
+        Order order = null; // this.save(userId,orderFromDTO.getAddress(),orderFromDTO.getCarts())
+        //创建支付信息
+
+        // 2 记录支付
+        // 3 记录库存变动
+        // 3 清空购物车
+        cartItemService.clean(orderFromDTO.getCarts());
+
+        // 创建 stripe 订单
+        String url = stripeApi.createOrder(userId, email, name, order.getOrderItems());
+
+        return null;
     }
 }

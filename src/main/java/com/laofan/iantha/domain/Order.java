@@ -1,6 +1,7 @@
 package com.laofan.iantha.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.laofan.iantha.stripe.dto.Member;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
@@ -71,6 +72,10 @@ public class Order implements Serializable {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
+    @NotNull
+    @Column(name = "updated_at", nullable = false)
+    private Member member;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "order", "provider" }, allowSetters = true)
@@ -95,6 +100,14 @@ public class Order implements Serializable {
     public Order id(Long id) {
         this.setId(id);
         return this;
+    }
+
+    public @NotNull Member getMember() {
+        return member;
+    }
+
+    public void setMember(@NotNull Member member) {
+        this.member = member;
     }
 
     public void setId(Long id) {

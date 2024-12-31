@@ -3,6 +3,7 @@ package com.laofan.iantha.web.rest;
 import com.laofan.iantha.repository.OrderRepository;
 import com.laofan.iantha.service.OrderService;
 import com.laofan.iantha.service.dto.OrderDTO;
+import com.laofan.iantha.service.dto.OrderFromDTO;
 import com.laofan.iantha.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -50,12 +51,11 @@ public class OrderResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("")
-    public ResponseEntity<OrderDTO> createOrder(@Valid @RequestBody OrderDTO orderDTO) throws URISyntaxException {
-        log.debug("REST request to save Order : {}", orderDTO);
-        if (orderDTO.getId() != null) {
-            throw new BadRequestAlertException("A new order cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        orderDTO = orderService.save(orderDTO);
+    public ResponseEntity<OrderDTO> createOrder(@Valid @RequestBody OrderFromDTO orderFromDTO) throws URISyntaxException {
+        log.debug("REST request to save Order : {}", orderFromDTO);
+
+        OrderDTO orderDTO = orderService.createOrder(orderFromDTO);
+
         return ResponseEntity.created(new URI("/api/orders/" + orderDTO.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, orderDTO.getId().toString()))
             .body(orderDTO);
